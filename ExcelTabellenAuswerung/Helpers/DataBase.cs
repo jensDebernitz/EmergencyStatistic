@@ -5,7 +5,7 @@ namespace ExcelTabellenAuswerung.Helpers
 {
     public class DataBase
     {
-        public static string DataBaseFileData()
+        public static string? DataBaseFileData()
         {
             var commonpath = GetFolderPath(SpecialFolder.CommonApplicationData);
             var path = Path.Combine(commonpath, "ExcelTabellenAuswertung\\data.db");
@@ -26,7 +26,7 @@ namespace ExcelTabellenAuswerung.Helpers
             return null;
         }
 
-        public static string DataBaseFileSettings()
+        public static string? DataBaseFileSettings()
         {
             var commonpath = GetFolderPath(SpecialFolder.CommonApplicationData);
             var path = Path.Combine(commonpath, "ExcelTabellenAuswertung\\settings.db");

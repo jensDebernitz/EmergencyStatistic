@@ -62,7 +62,7 @@ namespace ExcelTabellenAuswerung.Views.Pages
             }
         }
 
-        private ScrollViewer GetScrollViewer(DependencyObject o)
+        private ScrollViewer? GetScrollViewer(DependencyObject o)
         {
             if (o is ScrollViewer)
                 return o as ScrollViewer;
@@ -129,6 +129,11 @@ namespace ExcelTabellenAuswerung.Views.Pages
             //Models.AppSettings appSettings = settingsDataBase.LoadAppSettings();
             //appSettings.ColumnOrder = columnOrder;
             //settingsDataBase.SaveAppSettings(appSettings);
+        }
+
+        private void ScrollableListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ViewModel.OnDoubleClick(ScrollableListView.SelectedItem);
         }
     }
 }

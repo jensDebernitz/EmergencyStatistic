@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:ExcelTabellenAuswerung.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     Title="DataPage"
     d:DataContext="{d:DesignInstance local:DataPage, IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
@@ -88,7 +89,9 @@
                     ScrollViewer.ScrollChanged="OnScrollableScrollChanged"
                     ItemsSource="{Binding ViewModel.EmergencyCaseList}"          
                     BorderThickness="0"
+                    MouseDoubleClick="ScrollableListView_MouseDoubleClick"
                     MaxHeight="800" >
+
                     <ui:ListView.View>
                         <ui:GridView>
                             <!--<ui:GridViewColumn Width="50"  DisplayMemberBinding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Header="Id" />

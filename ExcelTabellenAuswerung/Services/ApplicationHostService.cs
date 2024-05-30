@@ -13,10 +13,7 @@ namespace ExcelTabellenAuswerung.Services
 
         private INavigationWindow _navigationWindow;
 
-        public ApplicationHostService(IServiceProvider serviceProvider)
-        {
-            _serviceProvider = serviceProvider;
-        }
+        public ApplicationHostService(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
 
         /// <summary>
         /// Triggered when the application host is ready to start the service.

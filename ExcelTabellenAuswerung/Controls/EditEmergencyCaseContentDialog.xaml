@@ -5,13 +5,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:ExcelTabellenAuswerung.Controls"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-        Title="Terms of use"
+        Title="Bearbeiten"
         d:DesignHeight="1000"
         d:DesignWidth="750"
         ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
         ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
         CloseButtonText="Speichern"
-        DialogMaxWidth="750"
+        DialogWidth="900"
+        DialogHeight="650"
+        Width="900"
+                  Height="650"
         mc:Ignorable="d">
 
     <ui:ContentDialog.Resources>
@@ -19,20 +22,347 @@
     </ui:ContentDialog.Resources>
 
     <Grid>
-        <StackPanel
-            Grid.Row="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-            <TextBlock
-            Grid.Row="0"
-            FontSize="14"
-            TextWrapping="WrapWithOverflow">
-            <Run>
-                Sie können nun die Diagnose nach Krankhaus bearbeiten.
-            </Run>
-            </TextBlock>
-            <ui:TextBox PlaceholderText="Type something..." x:Name ="textBox"/>
+        <TabControl Margin="0,8,0,0">
+            <TabItem IsSelected="True">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon Margin="0,0,6,0" Symbol="AlignLeft48" />
+                        <TextBlock Text="Ivana" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="IVENA"/>
+                            <TextBlock Margin="50,0,0,0" x:Name="textIvena" Text="123456789012"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="IVENA RMZ"/>
+                            <TextBlock Margin="17,0,0,0" x:Name="textIvenaRMZ" Text="123"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="IVENA RMC"/>
+                            <TextBlock Margin="17,0,0,0" x:Name="textIvenaRMC" Text="123456"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon Margin="0,0,6,0" Symbol="CodetextEdit20" />
+                        <TextBlock Text="Nachbearbeitung" />
+                    </StackPanel>
+                </TabItem.Header>   
+                <Grid>
+                    <StackPanel>
+                        <StackPanel>
+                            <ui:TextBox Margin="10" Height="40" x:Name="textBoxIvena" PlaceholderText="IVENA" PreviewTextInput="NumberValidationTextBox"/>
+                            <ui:TextBox Margin="10" Height="40" x:Name="textBoxIvenaRMZ" PlaceholderText="IVENA RMZ" PreviewTextInput="NumberValidationTextBox"/>
+                            <ui:TextBox Margin="10" Height="40" x:Name="textBoxIvenaRMC" PlaceholderText="IVENA RMC" TextChanged="textBoxIvenaRMC_TextChanged" PreviewTextInput="NumberValidationTextBox"/>
+                        </StackPanel>
 
-        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Margin="5">
+                                <Border Height="25" Width="110" BorderThickness="1" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Yellow" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <Label Content="Bewusstsein" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <Border x:Name="borderBewusstsein1"  Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightYellow" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="unauffällig" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border  x:Name="borderBewusstsein2" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightYellow" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="somnolent" HorizontalAlignment="Center" VerticalAlignment="Center"/>                                        
+                                    </StackPanel>
+                                </Border>
+                                <Border  x:Name="borderBewusstsein3" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightYellow" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="schwere Störung" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Label Content="droht" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border  x:Name="borderBewusstsein4" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightYellow" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="komatös mit" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Label Content="Schmerzreaktion" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border  x:Name="borderBewusstsein5" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightYellow" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="komatös ohne" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Label Content="Schmerzreaktion" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Margin="5">
+                                <Border Height="25" Width="110" BorderThickness="1" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Aqua" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <Label Content="Atmung" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <Border x:Name="borderAtmung1"   Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightBlue" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="unauffällig" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderAtmung2" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightBlue" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="leicht gestört" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderAtmung3" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightBlue" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="schwere Störung" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Label Content="droht" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderAtmung4" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightBlue" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="schwer gestört" HorizontalAlignment="Center" VerticalAlignment="Center"/>                                        
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderAtmung5" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightBlue" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="Atemstillstand" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Margin="5">
+                                <Border Height="25" Width="110" BorderThickness="1" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Crimson" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <Label Content="Kreislauf" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <Border x:Name="borderKreislauf1" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightCoral" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="unauffällig" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderKreislauf2" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightCoral" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="leicht gestört" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderKreislauf3" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightCoral" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="schwere Störung" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Label Content="droht" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderKreislauf4" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightCoral" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="schwer gestört" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderKreislauf5" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightCoral" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="pulslos" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Margin="5">
+                                <Border Height="25" Width="110" BorderThickness="1" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Green" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <Label Content="Verletzung" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <Border x:Name="borderVerletzung1" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightGreen" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="keine" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderVerletzung2" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightGreen" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="leicht" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderVerletzung3" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightGreen" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="schwere Verlet-" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Label Content="zung denkbar" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderVerletzung4" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightGreen" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="schwer" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderVerletzung5" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightGreen" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="Polytrauma" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Margin="5">
+                                <Border Height="25" Width="110" BorderThickness="1" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Gray" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <Label Content="Neurologie" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <Border x:Name="borderNeurologie1" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightGray" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="unauffällig" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderNeurologie2" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightGray" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="vorbekannte" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Label Content="Störung" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderNeurologie3" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightGray" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="akute" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Label Content="Störung droht" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderNeurologie4" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightGray" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="akute Störung" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderNeurologie5" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightGray" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="progredient" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Margin="5">
+                                <Border Height="25" Width="110" BorderThickness="1" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="BlueViolet" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <Label Content="Schmerz" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <Border x:Name="borderSchmerz1" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Violet" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="kein" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderSchmerz2" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Violet" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="leicht" HorizontalAlignment="Center" VerticalAlignment="Center"/>                                        
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderSchmerz3" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Violet" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="mittelstark" HorizontalAlignment="Center" VerticalAlignment="Center"/>                                        
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderSchmerz4" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Violet" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="stark" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="borderSchmerz5" Height="50" Width="110" BorderThickness="2" CornerRadius="5,5,5,5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Violet" Opacity="1.0"/>
+                                    </Border.Background>
+                                    <StackPanel>
+                                        <Label Content="extrem" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>  
 </ui:ContentDialog>

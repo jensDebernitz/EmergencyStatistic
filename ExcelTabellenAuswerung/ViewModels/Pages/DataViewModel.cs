@@ -38,20 +38,38 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
         [ObservableProperty]
         private ObservableCollection<EmergencyCase> _emergencyCaseList = [];
-        private DispatcherTimer _searchTimer;
 
-        public ICommand EditCommand { get; }
         public bool IsInitialized { get; internal set; }
 
         public DataViewModel(IContentDialogService contentDialogService)
         {
             _contentDialogService = contentDialogService;
-            EditCommand = new DelegateCommand<object>(EditAction);
 
             Task.Run(() =>
             {
                 _ = LoadInformation();
             });
+        }
+
+        public async void OnDoubleClick(object parameter)
+        {
+            var item = parameter as EmergencyCase; // MyItemType sollte durch den tatsächlichen Typ deines Items ersetzt werden
+            if (item != null)
+            {
+
+                var editDataContentDialog = new EditDataContentDialog(_contentDialogService.GetDialogHost(), item.Id);
+
+                _ = await editDataContentDialog.ShowAsync();
+                if (EmergencyCaseList != null)
+                {
+
+                    EmergencyCaseDataBase emergencyCaseDataBase = new EmergencyCaseDataBase();
+                    var found = EmergencyCaseList.FirstOrDefault(x => x.Id == item.Id);
+                    int i = EmergencyCaseList.IndexOf(found);
+                    EmergencyCaseList[i] = emergencyCaseDataBase.Get(item.Id);
+
+                }
+            }
         }
 
         private async Task LoadInformation()
@@ -67,23 +85,6 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
             // Loggen der Dauer der Operation
             Log.Information("Die LoadInformation dauerte {Duration} Millisekunden.", stopwatch.ElapsedMilliseconds);
-        }
-
-        private async void EditAction(object parameter)
-        {
-            var editDataContentDialog = new EditDataContentDialog(_contentDialogService.GetDialogHost(), Convert.ToInt32(parameter));
-
-            _ = await editDataContentDialog.ShowAsync();
-            if (EmergencyCaseList != null)
-            {
-
-                EmergencyCaseDataBase emergencyCaseDataBase = new EmergencyCaseDataBase();
-                var found = EmergencyCaseList.FirstOrDefault(x => x.Id == Convert.ToInt32(parameter));
-                int i = EmergencyCaseList.IndexOf(found);
-                EmergencyCaseList[i] = emergencyCaseDataBase.Get(Convert.ToInt32(parameter));
-
-            }
-
         }
 
         public void OnNavigatedTo()
