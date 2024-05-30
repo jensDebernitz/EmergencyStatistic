@@ -1,0 +1,144 @@
+<Page
+    x:Class="ExcelTabellenAuswerung.Views.Pages.DataPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ExcelTabellenAuswerung.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:ExcelTabellenAuswerung.Models"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="DataPage"
+    d:DataContext="{d:DesignInstance local:DataPage, IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ScrollViewer.CanContentScroll="false"
+    mc:Ignorable="d">
+
+    <StackPanel Margin="0,0,0,24">
+
+        <Grid Cursor="">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+            <ui:Button
+                Grid.Column="0"
+                Command="{Binding ViewModel.OpenFileCommand}"
+                Content="Open a file" />
+            <StackPanel
+                Grid.Column="1"
+                Margin="16,0,0,0"
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Visibility="{Binding ViewModel.OpenedFilePathVisibility}">
+                <ui:TextBlock Text="Neu Importierte:" />
+                <ui:TextBlock Margin="4,0,0,0" FontTypography="BodyStrong" Text="{Binding ViewModel.OpenedFilePath}" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                <ui:Button
+                    Grid.Column="0"
+                    Command="{Binding ViewModel.OpenFileCommand}"
+                    Content="Open a file" />
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="16,0,0,0"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Visibility="{Binding ViewModel.OpenedFilePathVisibility}">
+                    <ui:TextBlock Text="Neu Importierte:" />
+                    <ui:TextBlock Margin="4,0,0,0" FontTypography="BodyStrong" Text="{Binding ViewModel.OpenedFilePath}" />
+                </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+                <ui:ListView          
+                     x:Name="FixedListView" Grid.Column="0" ScrollViewer.ScrollChanged="OnFixedScrollChanged"
+                    ItemsSource="{Binding ViewModel.EmergencyCaseList}" 
+                     BorderThickness="0"
+                    
+                    MaxHeight="800" >
+                    <ui:ListView.View>
+                        <ui:GridView>
+                            <ui:GridViewColumn Width="50"  DisplayMemberBinding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Header="Id" />
+                            <ui:GridViewColumn Width="130" DisplayMemberBinding="{Binding InternalId, UpdateSourceTrigger=PropertyChanged}" Header="Protokollnummer" />
+                        </ui:GridView>
+                    </ui:ListView.View>
+            </ui:ListView>
+
+            <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto">
+                <ui:ListView 
+                     x:Name="ScrollableListView" Grid.Column="1" ScrollViewer.ScrollChanged="OnScrollableScrollChanged"
+                    ItemsSource="{Binding ViewModel.EmergencyCaseList}"          
+                   BorderThickness="0"
+                    MaxHeight="800" >
+                    <ui:ListView.View>
+                        <ui:GridView>
+                            <!--<ui:GridViewColumn Width="50"  DisplayMemberBinding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Header="Id" />
+                            <ui:GridViewColumn Width="130" DisplayMemberBinding="{Binding InternalId, UpdateSourceTrigger=PropertyChanged}" Header="Protokollnummer" />-->
+                            <ui:GridViewColumn Width="110" DisplayMemberBinding="{Binding EmergencyDate, StringFormat={}{0:dd.MM.yyyy}, UpdateSourceTrigger=PropertyChanged}" Header="Einsatzdatum"/>
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding RadioName, UpdateSourceTrigger=PropertyChanged}" Header="Funkname" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding BasicKeyword, UpdateSourceTrigger=PropertyChanged}" Header="Grundstichwort" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding TypeOfUse, UpdateSourceTrigger=PropertyChanged}" Header="Einsatzart" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Diagnosis, UpdateSourceTrigger=PropertyChanged}" Header="Diagnose" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding TransportDestination, UpdateSourceTrigger=PropertyChanged}" Header="Transportziel" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding IcdCode, UpdateSourceTrigger=PropertyChanged}" Header="ICD Code" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund2Atmung, UpdateSourceTrigger=PropertyChanged}" Header="Befund 2 Atmung" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund1Blutdrucksystolisch, UpdateSourceTrigger=PropertyChanged}" Header="Befund 1 Blutdruck Sys" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding TimeTransportBegin, UpdateSourceTrigger=PropertyChanged}" Header="Zeit Transport Beginn" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding PatientAge, UpdateSourceTrigger=PropertyChanged}" Header="Patient Alter" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund2BlutdruckSystolisch, UpdateSourceTrigger=PropertyChanged}" Header="Befund 2 Blutdruch Sys" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund2Bewusstlage, UpdateSourceTrigger=PropertyChanged}" Header="Befund 2 Bewusstlage" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund1HerzFrequenz, UpdateSourceTrigger=PropertyChanged}" Header="Befund 1 Herz Freq" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund2BlutdruckDiastolisch, UpdateSourceTrigger=PropertyChanged}" Header="Befund 2 Blutdruck Dia" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund2HerzFrequenz, UpdateSourceTrigger=PropertyChanged}" Header="Befund 2 Herz Freq" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund2Gcs, UpdateSourceTrigger=PropertyChanged}" Header="Befund 2 GCS" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund1BlutdruckDiastolisch, UpdateSourceTrigger=PropertyChanged}" Header="Befund 1 Blutdruck Dia" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding EinsatzID, UpdateSourceTrigger=PropertyChanged}" Header="EinsatzID" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding AlarmTime, UpdateSourceTrigger=PropertyChanged}" Header="Zeit Alarm" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding TimeSymptonBegin, UpdateSourceTrigger=PropertyChanged}" Header="Zeit Symptom Beginn" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding UnfallMechanismus, UpdateSourceTrigger=PropertyChanged}" Header="Unfallmechanismus" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding DiagnoseGruppe, UpdateSourceTrigger=PropertyChanged}" Header="Diagnose Gruppe" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund1EtCO2, UpdateSourceTrigger=PropertyChanged}" Header="Befund 1 EtCO2" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund2EtCO2, UpdateSourceTrigger=PropertyChanged}" Header="Befund 2 EtCO2" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund1Psyche, UpdateSourceTrigger=PropertyChanged}" Header="Befund 1 Psyche" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding DiagnoseCode, UpdateSourceTrigger=PropertyChanged}" Header="Diagnose Code" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Reanimation, UpdateSourceTrigger=PropertyChanged}" Header="Reanimation" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Beatmung, UpdateSourceTrigger=PropertyChanged}" Header="Beatmung" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding ReaniZeitEOFirstResp, UpdateSourceTrigger=PropertyChanged}" Header="Reani Zeit EO First Resp" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding ReaniKollapsBeobDurch, UpdateSourceTrigger=PropertyChanged}" Header="Reani Kollaps Beob durch" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding ReaniBeginnHDMDurch, UpdateSourceTrigger=PropertyChanged}" Header="Reani Beginn HDM durch" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding TransportZiel, UpdateSourceTrigger=PropertyChanged}" Header="Transportziel Ort" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding TimeAnkunftEinsatzOrt, UpdateSourceTrigger=PropertyChanged}" Header="Zeit Ankunft Einsatzort" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding PatientGeschlecht, UpdateSourceTrigger=PropertyChanged}" Header="Patient Geschlecht" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding AmbulanteVersorgung, UpdateSourceTrigger=PropertyChanged}" Header="Ambulante Versorgung" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding NacaScore, UpdateSourceTrigger=PropertyChanged}" Header="NACA Score" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund1Zucker, UpdateSourceTrigger=PropertyChanged}" Header="Befund 1 Zucker" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding UnfallHergang, UpdateSourceTrigger=PropertyChanged}" Header="Unfallhergang" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding IvenaAnmaledeCode, UpdateSourceTrigger=PropertyChanged}" Header="IVENA Anmeldecode" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding IvenaRmc, UpdateSourceTrigger=PropertyChanged}" Header="IVENA RMC" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding IvenaRmz, UpdateSourceTrigger=PropertyChanged}" Header="IVENA RMZ" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding TimeTransportBegin, UpdateSourceTrigger=PropertyChanged}" Header="Zeit Transport Beginn" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding TimeAnkunftPatient, UpdateSourceTrigger=PropertyChanged}" Header="Zeit Ankunft Patient" />
+                        </ui:GridView>
+                    </ui:ListView.View>
+                </ui:ListView>
+            </ScrollViewer>
+
+        </Grid>
+
+        
+    </StackPanel>
+</Page>
