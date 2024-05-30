@@ -26,34 +26,34 @@
             </Grid.ColumnDefinitions>
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
-            <ui:Button
-                Grid.Column="0"
-                Command="{Binding ViewModel.OpenFileCommand}"
-                Content="Open a file" />
-            <StackPanel
-                Grid.Column="1"
-                Margin="16,0,0,0"
-                VerticalAlignment="Center"
-                Orientation="Horizontal"
-                Visibility="{Binding ViewModel.OpenedFilePathVisibility}">
-                <ui:TextBlock Text="Neu Importierte:" />
-                <ui:TextBlock Margin="4,0,0,0" FontTypography="BodyStrong" Text="{Binding ViewModel.OpenedFilePath}" />
+                    <ui:Button
+                        Grid.Column="0"
+                        Command="{Binding ViewModel.OpenFileData1Command}"
+                        Content="Einlesen Data 1 Tabelle" />
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="16,0,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Visibility="{Binding ViewModel.OpenedFilePathVisibilityData1}">
+                            <ui:TextBlock Text="Neu Importierte:" />
+                            <ui:TextBlock Margin="4,0,0,0" FontTypography="BodyStrong" Text="{Binding ViewModel.OpenedFilePathData1}" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                <ui:Button
-                    Grid.Column="0"
-                    Command="{Binding ViewModel.OpenFileCommand}"
-                    Content="Open a file" />
-                <StackPanel
-                    Grid.Column="1"
-                    Margin="16,0,0,0"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal"
-                    Visibility="{Binding ViewModel.OpenedFilePathVisibility}">
-                    <ui:TextBlock Text="Neu Importierte:" />
-                    <ui:TextBlock Margin="4,0,0,0" FontTypography="BodyStrong" Text="{Binding ViewModel.OpenedFilePath}" />
-                </StackPanel>
+                    <ui:Button
+                        Grid.Column="0"
+                        Command="{Binding ViewModel.OpenFileData2Command}"
+                        Content="Einlesen Data 2 Tabelle" />
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="16,0,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Visibility="{Binding ViewModel.OpenedFilePathVisibilityData2}">
+                            <ui:TextBlock Text="Neu Importierte:" />
+                            <ui:TextBlock Margin="4,0,0,0" FontTypography="BodyStrong" Text="{Binding ViewModel.OpenedFilePathData2}" />
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </Grid>
@@ -64,36 +64,41 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             
-                <ui:ListView          
-                     x:Name="FixedListView" Grid.Column="0" ScrollViewer.ScrollChanged="OnFixedScrollChanged"
+                <ui:ListView           
+                    x:Name="FixedListView" 
+                    Grid.Column="0" 
+                    ScrollViewer.ScrollChanged="OnFixedScrollChanged"
                     ItemsSource="{Binding ViewModel.EmergencyCaseList}" 
-                     BorderThickness="0"
-                    
+                    BorderThickness="0"                    
                     MaxHeight="800" >
                     <ui:ListView.View>
-                        <ui:GridView>
+                        <ui:GridView >
                             <ui:GridViewColumn Width="50"  DisplayMemberBinding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Header="Id" />
                             <ui:GridViewColumn Width="130" DisplayMemberBinding="{Binding InternalId, UpdateSourceTrigger=PropertyChanged}" Header="Protokollnummer" />
                         </ui:GridView>
                     </ui:ListView.View>
             </ui:ListView>
 
-            <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto">
+            <ScrollViewer 
+                Grid.Column="1" 
+                HorizontalScrollBarVisibility="Auto">
                 <ui:ListView 
-                     x:Name="ScrollableListView" Grid.Column="1" ScrollViewer.ScrollChanged="OnScrollableScrollChanged"
+                    x:Name="ScrollableListView" 
+                    Grid.Column="1" 
+                    ScrollViewer.ScrollChanged="OnScrollableScrollChanged"
                     ItemsSource="{Binding ViewModel.EmergencyCaseList}"          
-                   BorderThickness="0"
+                    BorderThickness="0"
                     MaxHeight="800" >
                     <ui:ListView.View>
                         <ui:GridView>
                             <!--<ui:GridViewColumn Width="50"  DisplayMemberBinding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Header="Id" />
                             <ui:GridViewColumn Width="130" DisplayMemberBinding="{Binding InternalId, UpdateSourceTrigger=PropertyChanged}" Header="Protokollnummer" />-->
-                            <ui:GridViewColumn Width="110" DisplayMemberBinding="{Binding EmergencyDate, StringFormat={}{0:dd.MM.yyyy}, UpdateSourceTrigger=PropertyChanged}" Header="Einsatzdatum"/>
+                            <ui:GridViewColumn Width="110" DisplayMemberBinding="{Binding EmergencyDate,UpdateSourceTrigger=PropertyChanged}" Header="Einsatzdatum"/>
                             <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding RadioName, UpdateSourceTrigger=PropertyChanged}" Header="Funkname" />
                             <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding BasicKeyword, UpdateSourceTrigger=PropertyChanged}" Header="Grundstichwort" />
                             <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding TypeOfUse, UpdateSourceTrigger=PropertyChanged}" Header="Einsatzart" />
                             <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Diagnosis, UpdateSourceTrigger=PropertyChanged}" Header="Diagnose" />
-                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding TransportDestination, UpdateSourceTrigger=PropertyChanged}" Header="Transportziel" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding TransportZiel, UpdateSourceTrigger=PropertyChanged}" Header="Transportziel" />
                             <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding IcdCode, UpdateSourceTrigger=PropertyChanged}" Header="ICD Code" />
                             <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund2Atmung, UpdateSourceTrigger=PropertyChanged}" Header="Befund 2 Atmung" />
                             <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding Befund1Blutdrucksystolisch, UpdateSourceTrigger=PropertyChanged}" Header="Befund 1 Blutdruck Sys" />
@@ -120,7 +125,7 @@
                             <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding ReaniZeitEOFirstResp, UpdateSourceTrigger=PropertyChanged}" Header="Reani Zeit EO First Resp" />
                             <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding ReaniKollapsBeobDurch, UpdateSourceTrigger=PropertyChanged}" Header="Reani Kollaps Beob durch" />
                             <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding ReaniBeginnHDMDurch, UpdateSourceTrigger=PropertyChanged}" Header="Reani Beginn HDM durch" />
-                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding TransportZiel, UpdateSourceTrigger=PropertyChanged}" Header="Transportziel Ort" />
+                            <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding TransportZielOrt, UpdateSourceTrigger=PropertyChanged}" Header="Transportziel Ort" />
                             <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding TimeAnkunftEinsatzOrt, UpdateSourceTrigger=PropertyChanged}" Header="Zeit Ankunft Einsatzort" />
                             <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding PatientGeschlecht, UpdateSourceTrigger=PropertyChanged}" Header="Patient Geschlecht" />
                             <ui:GridViewColumn Width="120" DisplayMemberBinding="{Binding AmbulanteVersorgung, UpdateSourceTrigger=PropertyChanged}" Header="Ambulante Versorgung" />
@@ -136,9 +141,6 @@
                     </ui:ListView.View>
                 </ui:ListView>
             </ScrollViewer>
-
-        </Grid>
-
-        
+        </Grid>        
     </StackPanel>
 </Page>
