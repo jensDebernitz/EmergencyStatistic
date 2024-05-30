@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Wpf.Ui.Controls;
 using System.Text.RegularExpressions;
+using ExcelTabellenAuswerung.Models;
 
 namespace ExcelTabellenAuswerung.Controls
 {
@@ -38,6 +39,22 @@ namespace ExcelTabellenAuswerung.Controls
 
         protected override void OnButtonClick(ContentDialogButton button)
         {
+            Models.Scaling bewusstsein;
+            Models.Scaling atmung;
+            Models.Scaling kreislauf;
+            Models.Scaling verletzung;
+            Models.Scaling neurologie;
+            Models.Scaling schmerz;
+
+            checkScaling(out bewusstsein, out atmung, out kreislauf, out verletzung, out neurologie, out schmerz);
+            
+            _emergencyCase.ScalingBewusstsein = bewusstsein;
+            _emergencyCase.ScalingAtmung = atmung;
+            _emergencyCase.ScalingKreislauf = kreislauf;
+            _emergencyCase.ScalingVerletzung = verletzung;
+            _emergencyCase.ScalingNeurologie = neurologie;
+            _emergencyCase.ScalingSchmerz = schmerz;
+
             DataBase.EmergencyCaseDataBase emergencyCaseDataBase = new DataBase.EmergencyCaseDataBase();
 
             _emergencyCase.Review1 = new Models.EmegencyCaseReview()
@@ -52,8 +69,121 @@ namespace ExcelTabellenAuswerung.Controls
             base.OnButtonClick(button);
         }
 
-        
-    private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        private void checkScaling(out Models.Scaling bewusstsein,
+            out Models.Scaling atmung,
+            out Models.Scaling kreislauf,
+            out Models.Scaling verletzung,
+            out Models.Scaling neurologie,
+            out Models.Scaling schmerz)
+        {
+            //check RMC Scaling
+            string emergencyRmc = textBoxIvenaRMC.Text;
+            string hospitalRmc = textIvenaRMC.Text;
+
+            int emergencyCode1 = Convert.ToInt32(emergencyRmc.Substring(0, 1));
+            int hospitalCode1 = Convert.ToInt32(hospitalRmc.Substring(0, 1));
+
+            int emergencyCode2 = Convert.ToInt32(emergencyRmc.Substring(1, 1));
+            int hospitalCode2 = Convert.ToInt32(hospitalRmc.Substring(1, 1));
+
+            int emergencyCode3 = Convert.ToInt32(emergencyRmc.Substring(2, 1));
+            int hospitalCode3 = Convert.ToInt32(hospitalRmc.Substring(2, 1));
+
+            int emergencyCode4 = Convert.ToInt32(emergencyRmc.Substring(3, 1));
+            int hospitalCode4 = Convert.ToInt32(hospitalRmc.Substring(3, 1));
+
+            int emergencyCode5 = Convert.ToInt32(emergencyRmc.Substring(4, 1));
+            int hospitalCode5 = Convert.ToInt32(hospitalRmc.Substring(4, 1));
+
+            int emergencyCode6 = Convert.ToInt32(emergencyRmc.Substring(5, 1));
+            int hospitalCode6 = Convert.ToInt32(hospitalRmc.Substring(5, 1));
+
+            if(hospitalCode1 > emergencyCode1)
+            {
+                bewusstsein = Models.Scaling.upScaling;
+            }
+            else if (hospitalCode1 < emergencyCode1)
+            {
+                bewusstsein = Models.Scaling.downScaling;
+            } 
+            else 
+            {
+                bewusstsein = Models.Scaling.noScaling;
+            }
+
+
+            if (hospitalCode2 > emergencyCode2)
+            {
+                atmung = Models.Scaling.upScaling;
+            }
+            else if (hospitalCode2 < emergencyCode2)
+            {
+                atmung = Models.Scaling.downScaling;
+            }
+            else
+            {
+                atmung = Models.Scaling.noScaling;
+            }
+
+
+            if (hospitalCode3 > emergencyCode3)
+            {
+                kreislauf = Models.Scaling.upScaling;
+            }
+            else if (hospitalCode3 < emergencyCode3)
+            {
+                kreislauf = Models.Scaling.downScaling;
+            }
+            else
+            {
+                kreislauf = Models.Scaling.noScaling;
+            }
+
+
+            if (hospitalCode4 > emergencyCode4)
+            {
+                verletzung = Models.Scaling.upScaling;
+            }
+            else if (hospitalCode4 < emergencyCode4)
+            {
+                verletzung = Models.Scaling.downScaling;
+            }
+            else
+            {
+                verletzung = Models.Scaling.noScaling;
+            }
+
+
+            if (hospitalCode5 > emergencyCode5)
+            {
+                neurologie = Models.Scaling.upScaling;
+            }
+            else if (hospitalCode5 < emergencyCode5)
+            {
+                neurologie = Models.Scaling.downScaling;
+            }
+            else
+            {
+                neurologie = Models.Scaling.noScaling;
+            }
+
+
+            if (hospitalCode6 > emergencyCode6)
+            {
+                schmerz = Models.Scaling.upScaling;
+            }
+            else if (hospitalCode6 < emergencyCode6)
+            {
+                schmerz = Models.Scaling.downScaling;
+            }
+            else
+            {
+                schmerz = Models.Scaling.noScaling;
+            }
+            //check RMZ Scaling
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
     {
         Regex regex = new Regex("[^0-9]+");
         e.Handled = regex.IsMatch(e.Text);

@@ -74,9 +74,16 @@
                     MaxHeight="800" >
                     <ui:ListView.View>
                         <ui:GridView >
-                            <ui:GridViewColumn Width="50"  DisplayMemberBinding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Header="Id" />
+                            <!--<ui:GridViewColumn Width="50"  DisplayMemberBinding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Header="Id" />-->
                             <ui:GridViewColumn Width="130" DisplayMemberBinding="{Binding InternalId, UpdateSourceTrigger=PropertyChanged}" Header="Protokollnummer" />
-                        </ui:GridView>
+                        <ui:GridViewColumn Header="Info">
+                            <ui:GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ui:SymbolIcon Symbol="{Binding IsScaling}" />
+                                </DataTemplate>
+                            </ui:GridViewColumn.CellTemplate>
+                        </ui:GridViewColumn>
+                    </ui:GridView>
                     </ui:ListView.View>
             </ui:ListView>
 
@@ -93,7 +100,7 @@
                     MaxHeight="800" >
 
                     <ui:ListView.View>
-                        <ui:GridView>
+                        <ui:GridView  x:Name="EmergencyGridView" AllowsColumnReorder="true">
                             <!--<ui:GridViewColumn Width="50"  DisplayMemberBinding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Header="Id" />
                             <ui:GridViewColumn Width="130" DisplayMemberBinding="{Binding InternalId, UpdateSourceTrigger=PropertyChanged}" Header="Protokollnummer" />-->
                             <ui:GridViewColumn Width="110" DisplayMemberBinding="{Binding EmergencyDate,UpdateSourceTrigger=PropertyChanged}" Header="Einsatzdatum"/>

@@ -2,13 +2,16 @@
 using ExcelTabellenAuswerung.ViewModels.Pages;
 using Serilog;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using System.Xml.Serialization;
 using Wpf.Ui.Controls;
 
 namespace ExcelTabellenAuswerung.Views.Pages
 {
-    public partial class DataPage : INavigableView<DataViewModel>
+    public partial class DataPage : INavigableView<DataViewModel>, IDisposable
     {
         public DataViewModel ViewModel { get; }
         bool _shown;
@@ -21,7 +24,6 @@ namespace ExcelTabellenAuswerung.Views.Pages
 
             InitializeComponent();
             stopwatch.Stop();
-
             // Loggen der Dauer der Operation
             Log.Information("Die DataPage(DataViewModel viewModel) dauerte {Duration} Millisekunden.", stopwatch.ElapsedMilliseconds);
         }
@@ -85,51 +87,92 @@ namespace ExcelTabellenAuswerung.Views.Pages
 
             _shown = true;
             ViewModel.IsInitialized = true;
-            SetDisplayIndex();
+            LoadColumnState();
         }
 
-        private void SetDisplayIndex()
+        private void LoadColumnState()
         {
-            //SettingsDataBase settingsDataBase = new SettingsDataBase();
-            //Models.AppSettings appSettings = settingsDataBase.LoadAppSettings();
+            SettingsDataBase settingsDataBase = new SettingsDataBase();
+            Models.AppSettings appSettings = settingsDataBase.LoadAppSettings();
+            bool deserializationSucceeded = true;
+            List<String> columnOrder = null;
 
-            //if (appSettings != null)
-            //{
-            //    string columnOrder = appSettings.ColumnOrder;
+            try
+            {               
+                columnOrder = DeserializeFromXML<List<string>>(appSettings.ColumnOrder);
+            }
+            catch (Exception ex)
+            {
+                deserializationSucceeded = false;
+            }
 
-            //    if (string.IsNullOrEmpty(columnOrder) == false)
-            //    {
-            //        string[] columns = columnOrder.Split(';');
-            //        foreach (string column in columns)
-            //        {
-            //            string[] columnValues = column.Split(",");
+            if (deserializationSucceeded && columnOrder != null && columnOrder.Count > 0)
+            {
+                int newIndex = 0;
+                foreach (var colName in columnOrder)
+                {
 
-            //            foreach (DataGridColumn gridColumn in dataGridEmergencyCases.Columns)
-            //            {
-            //                if (gridColumn.Header.ToString() == columnValues[0])
-            //                {
-            //                    gridColumn.DisplayIndex = Convert.ToInt32(columnValues[1]);
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+                    int oldIndex = 0;
+                    for (int i = 0; i < EmergencyGridView.Columns.Count; i++)
+                    {
+                        if (EmergencyGridView.Columns[i].Header.ToString().Equals(colName))
+                        {
+                            oldIndex = i;
+                            break;
+                        }
+
+                    }
+                    EmergencyGridView.Columns.Move(oldIndex, newIndex++);
+                }
+            }
         }
 
-        private void DataGrid_ColumnDisplayIndexChanged(object sender, DataGridColumnEventArgs e)
+        void SaveColumnState()
         {
-            //string columnOrder = "";
+            List<String> columnOrder = new List<string>();
+            foreach (var column in EmergencyGridView.Columns)
+            {
+                columnOrder.Add(column.Header.ToString());
+                Log.Information(column.Header.ToString());
+            }
 
-            //foreach (DataGridColumn column in dataGridEmergencyCases.Columns)
-            //{
-            //    columnOrder += column.Header.ToString() + "," + column.DisplayIndex + ";";
-            //}
+            string xml = SerializeToXML(columnOrder);
 
-            //SettingsDataBase settingsDataBase = new SettingsDataBase();
-            //Models.AppSettings appSettings = settingsDataBase.LoadAppSettings();
-            //appSettings.ColumnOrder = columnOrder;
-            //settingsDataBase.SaveAppSettings(appSettings);
+            SettingsDataBase settingsDataBase = new SettingsDataBase();
+            Models.AppSettings appSettings = settingsDataBase.LoadAppSettings();
+            appSettings.ColumnOrder = xml;
+            settingsDataBase.SaveAppSettings(appSettings);
         }
+
+        public void Dispose()
+        {
+            SaveColumnState();
+        }
+
+        public static T DeserializeFromXML<T>(string inString)
+        {
+            XmlSerializer deserializer = new XmlSerializer(typeof(T));
+            TextReader textReader = (TextReader)new StringReader(inString);
+            T retVal = (T)deserializer.Deserialize(textReader);
+            textReader.Close();
+            return retVal;
+        }
+
+        public static string SerializeToXML<T>(T t, XmlSerializerNamespaces inNameSpaces = null)
+        {
+            XmlSerializerNamespaces ns = inNameSpaces;
+            if (ns == null)
+            {
+                ns = new XmlSerializerNamespaces();
+                ns.Add("", "");
+            }
+            XmlSerializer serializer = new XmlSerializer(t.GetType());
+            TextWriter textWriter = (TextWriter)new StringWriter();
+            serializer.Serialize(textWriter, t, ns);
+            return textWriter.ToString();
+        }
+
+      
 
         private void ScrollableListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
