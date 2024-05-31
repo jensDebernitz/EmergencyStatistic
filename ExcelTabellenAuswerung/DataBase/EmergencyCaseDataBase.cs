@@ -1,6 +1,7 @@
 ﻿using LiteDB;
 using LiteDB.Async;
 using System.Linq.Expressions;
+using ExcelTabellenAuswerung.Models;
 
 namespace ExcelTabellenAuswerung.DataBase
 {
@@ -50,6 +51,9 @@ namespace ExcelTabellenAuswerung.DataBase
                 return col.FindOne(predicate);
             }
         }
+
+
+
 
         public void Save(Models.EmergencyCase data)
         {

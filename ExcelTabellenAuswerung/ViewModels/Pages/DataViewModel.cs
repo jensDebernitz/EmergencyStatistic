@@ -3,16 +3,11 @@ using ExcelTabellenAuswerung.Controls;
 using ExcelTabellenAuswerung.DataBase;
 using ExcelTabellenAuswerung.Models;
 using Microsoft.Win32;
-using Prism.Commands;
 using Serilog;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Input;
-using System.Windows.Threading;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
-using System.ComponentModel;
-using DocumentFormat.OpenXml.EMMA;
 
 namespace ExcelTabellenAuswerung.ViewModels.Pages
 {
