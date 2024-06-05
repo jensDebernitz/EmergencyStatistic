@@ -28,13 +28,14 @@ jobs:
     - uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
-    - run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }} /p:Version=${{ steps.tagName.outputs.tag }}
+    - run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }} /p:Version=$GIT_TAG_NAME
     - uses: actions/upload-artifact@v3
       with:
         name: nuget
         if-no-files-found: error
         retention-days: 7
-        path: ${{ env.NuGetDirectory }}/*.nupkg
+        path: ${{ env.NuGetDirectory }}/*.nupkg         
+        tagname: ${{ steps.tagName.outputs.tag }}
 
   validate_nuget:
     runs-on: windows-latest
