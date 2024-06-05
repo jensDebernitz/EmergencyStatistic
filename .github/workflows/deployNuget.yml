@@ -1,9 +1,9 @@
 name: publish
+
 on:
-  workflow_dispatch:
-  release:
-    types:
-      - published
+  push:
+    tags:
+      - 'v*'
 
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
