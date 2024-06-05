@@ -30,10 +30,15 @@ jobs:
       uses: actions/setup-dotnet@v3
     - name: Set Version
       run: |
-        if [ -n "$GITHUB_REF" ] && [[ "$GITHUB_REF" == refs/tags/* ]]; then
+       if [ -n "$GITHUB_REF" ] && [[ "$GITHUB_REF" == refs/tags/* ]]; then
          echo "::set-env name=VERSION::$(echo $GITHUB_REF | sed 's/refs\/tags\///')"
-        fi
-    - run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }} ${{ env.VERSION && '/p:Version=' + env.VERSION }}
+       fi
+    - run: |
+       if [ -n "$VERSION" ]; then
+         dotnet pack --configuration Release --output ${{ env.NuGetDirectory }} /p:Version=$VERSION
+       else
+         dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
+       fi
     - uses: actions/upload-artifact@v3
       with:
         name: nuget
