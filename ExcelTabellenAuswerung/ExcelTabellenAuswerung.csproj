@@ -9,6 +9,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU;x64</Platforms>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Authors>Jens Debernitz</Authors>
+    <Description>kleines EXCEL Auswerte Tool</Description>
+    <PackageProjectUrl>https://github.com/jensDebernitz</PackageProjectUrl>
+    <PackageTags>sample, library</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>wpfui-icon.ico</PackageIcon>
+     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
