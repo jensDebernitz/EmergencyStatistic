@@ -23,7 +23,7 @@ defaults:
 
 jobs:
   create_nuget:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -37,7 +37,7 @@ jobs:
         path: ${{ env.NuGetDirectory }}/*.nupkg
 
   validate_nuget:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: [ create_nuget ]
     steps:
       - name: Setup .NET
@@ -57,7 +57,7 @@ jobs:
   deploy:
     # Publish only when creating a release
     if: github.event_name == 'release'
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: [ validate_nuget ]
     steps:
     - uses: actions/download-artifact@v3
