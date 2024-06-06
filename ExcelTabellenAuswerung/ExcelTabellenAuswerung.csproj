@@ -25,7 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="$(OutputPath)\**\*.*" />    
+    <Content Include="$(OutputPath)\ExcelTabellenAuswerung.exe" />    
+    <Content Include="$(OutputPath)\ClosedXML.dll" />   
     <None Include="icon.jpg" Pack="true" PackagePath=""/>
     <None Include="README.md" Pack="true" PackagePath=""/>
   </ItemGroup>
