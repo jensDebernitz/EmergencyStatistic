@@ -17,6 +17,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.jpg</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,13 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
-  <None Include="icon.jpg" Pack="true" PackagePath=""/>
-  <None Include="README.md" Pack="true" PackagePath=""/>
+    <PackageOutput Include="$(OutputPath)\**\*.*" />
+    <None Include="icon.jpg" Pack="true" PackagePath=""/>
+    <None Include="README.md" Pack="true" PackagePath=""/>
     <PackageReference Include="ClosedXML" Version="0.102.2" />
-    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="LiteDB" Version="5.0.19" />
     <PackageReference Include="LiteDB.Async" Version="0.1.7" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
@@ -43,6 +41,8 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0 " />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2 " />
   </ItemGroup>
+
+
 
   <ItemGroup>
     <None Remove="Assets\wpfui-icon-256.png" />
