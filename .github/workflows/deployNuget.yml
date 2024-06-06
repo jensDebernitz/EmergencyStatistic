@@ -34,14 +34,6 @@ jobs:
     - name: do not release
       if: "!contains(github.event_name, 'release')"
       run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
-    - name: Setup .Nuget
-      uses: nuget/setup-nuget@v2
-    - name: do Release nuget
-      if: "contains(github.event_name, 'release')"
-      run: nuget pack ./ExcelTabellenAuswerung/ExcelTabellenAuswerung.nuspec -OutputDirectory  ${{ env.NuGetDirectory }} /p:Version=${{ github.ref_name }}
-    - name: do not release nuget
-      if: "!contains(github.event_name, 'release')"
-      run: nuget pack ./ExcelTabellenAuswerung/ExcelTabellenAuswerung.nuspec -OutputDirectory  ${{ env.NuGetDirectory }}
     - uses: actions/upload-artifact@v3
       with:
         name: nuget
