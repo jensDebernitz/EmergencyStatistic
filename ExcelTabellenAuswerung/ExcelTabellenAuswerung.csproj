@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageOutput Include="$(OutputPath)\**\*.*" />
     <None Include="icon.jpg" Pack="true" PackagePath=""/>
     <None Include="README.md" Pack="true" PackagePath=""/>
     <PackageReference Include="ClosedXML" Version="0.102.2" />
@@ -42,6 +41,14 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2 " />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="bin\release\net8.0-windows\**\*">
+      <Pack>true</Pack>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+      <PackageFlatten>true</PackageFlatten>
+      <PackagePath>contentFiles;content</PackagePath>
+    </Content>
+  </ItemGroup>
 
 
   <ItemGroup>
