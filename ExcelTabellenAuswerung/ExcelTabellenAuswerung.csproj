@@ -25,8 +25,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="$(OutputPath)\**\*.*">
+      <Pack>true</Pack>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+      <PackageFlatten>true</PackageFlatten>
+      <PackagePath>contentFiles;content</PackagePath>
+    </Content>
+    
     <None Include="icon.jpg" Pack="true" PackagePath=""/>
     <None Include="README.md" Pack="true" PackagePath=""/>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.102.2" />
     <PackageReference Include="LiteDB" Version="5.0.19" />
     <PackageReference Include="LiteDB.Async" Version="0.1.7" />
@@ -41,14 +51,7 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2 " />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="$(OutputPath)\**\*.*">
-      <Pack>true</Pack>
-      <PackageCopyToOutput>true</PackageCopyToOutput>
-      <PackageFlatten>true</PackageFlatten>
-      <PackagePath>contentFiles;content</PackagePath>
-    </Content>
-  </ItemGroup>
+
 
 
   <ItemGroup>
