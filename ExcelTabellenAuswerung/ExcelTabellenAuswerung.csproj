@@ -25,13 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="$(OutputPath)\**\*.*">
-      <Pack>true</Pack>
-      <PackageCopyToOutput>true</PackageCopyToOutput>
-      <PackageFlatten>true</PackageFlatten>
-      <PackagePath>contentFiles;content</PackagePath>
-    </Content>
-    
+    <Content Include="$(OutputPath)\**\*.*" />    
     <None Include="icon.jpg" Pack="true" PackagePath=""/>
     <None Include="README.md" Pack="true" PackagePath=""/>
   </ItemGroup>
