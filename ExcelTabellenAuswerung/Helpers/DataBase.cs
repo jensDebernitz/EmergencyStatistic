@@ -5,6 +5,8 @@ namespace ExcelTabellenAuswerung.Helpers
 {
     public class DataBase
     {
+        public static StringWriter GlobalLogging { get; set; }
+
         public static string? DataBaseFileData()
         {
             var commonpath = GetFolderPath(SpecialFolder.CommonApplicationData);

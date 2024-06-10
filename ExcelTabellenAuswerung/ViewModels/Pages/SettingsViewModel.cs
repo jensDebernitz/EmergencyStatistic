@@ -1,4 +1,8 @@
 ﻿using ExcelTabellenAuswerung.DataBase;
+using System.Text;
+using Serilog;
+using Velopack;
+using Velopack.Sources;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
@@ -10,13 +14,18 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
         [ObservableProperty]
         private string _appVersion = String.Empty;
-
-
+        
         [ObservableProperty]
         private string _author = String.Empty;
 
         [ObservableProperty]
+        private string _logging = String.Empty;
+
+        [ObservableProperty]
         private ApplicationTheme _currentTheme = ApplicationTheme.Unknown;
+
+        private UpdateManager _updateManager;
+        private UpdateInfo _update;
 
         public void OnNavigatedTo()
         {
@@ -31,7 +40,8 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
             CurrentTheme = ApplicationThemeManager.GetAppTheme();
             AppVersion = $"Excel Tabellen Auswertung - {GetAssemblyVersion()}";
             Author = "rot weiße Grüße von Jens Debernitz";
-
+            _updateManager = new UpdateManager(new GithubSource("https://github.com/jensDebernitz/EmergencyStatistic", null, false));
+            UpdateStatus();
             _isInitialized = true;
         }
 
@@ -66,6 +76,14 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
                     settingsDataBase.SaveTheme(CurrentTheme);
                     break;
             }
+        }
+
+        private void UpdateStatus()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Velopack version: {VelopackRuntimeInfo.VelopackNugetVersion}");
+            sb.AppendLine($"This app version: {(_updateManager.IsInstalled ? _updateManager.CurrentVersion : "(n/a - not installed)")}");
+            Log.Information(sb.ToString());
         }
     }
 }

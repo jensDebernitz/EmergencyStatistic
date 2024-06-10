@@ -27,19 +27,30 @@ namespace ExcelTabellenAuswerung
                     Directory.CreateDirectory(path);
                 }
 
+                Helpers.DataBase.GlobalLogging = new StringWriter();
+
                 Log.Logger = new LoggerConfiguration()
                     .MinimumLevel.Debug()
                     .WriteTo.Console()
+                    .WriteTo.TextWriter(Helpers.DataBase.GlobalLogging)
                     .WriteTo.File(path + "\\app.log", rollingInterval: RollingInterval.Day)
                     .CreateLogger();
 
-                Log.Information("Anwendung gestartet 2");
+                Log.Information("Anwendung gestartet");
                
 
                 //// It's important to Run() the VelopackApp as early as possible in app startup.
                 VelopackApp.Build().Run();
-                UpdateMyApp();
 
+                try
+                {
+                    UpdateMyApp();
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e, e.Message);
+                }
+                
                 // We can now launch the WPF application as normal.
                 var app = new App();
                 app.InitializeComponent();
@@ -59,9 +70,6 @@ namespace ExcelTabellenAuswerung
         {
             Log.Information("Check Updates avaible");
             var mgr = new UpdateManager(new GithubSource("https://github.com/jensDebernitz/EmergencyStatistic", null, false));
-
-
-            
 
             // check for new version
             var newVersion = mgr.CheckForUpdates();
