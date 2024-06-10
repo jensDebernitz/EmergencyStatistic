@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Velopack;
 using static System.Environment;
+using Velopack.Sources;
 
 namespace ExcelTabellenAuswerung
 {
@@ -57,7 +58,10 @@ namespace ExcelTabellenAuswerung
         private static void UpdateMyApp()
         {
             Log.Information("Check Updates avaible");
-            var mgr = new UpdateManager("https://github.com/jensDebernitz/EmergencyStatistic");
+            var mgr = new UpdateManager(new GitHubSource("https://github.com/jensDebernitz/EmergencyStatistic"));
+
+
+            
 
             // check for new version
             var newVersion = mgr.CheckForUpdates();
