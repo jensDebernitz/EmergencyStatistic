@@ -11,7 +11,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Threading;
 using Wpf.Ui;
-using static System.Environment;
+
 
 namespace ExcelTabellenAuswerung
 {
@@ -24,7 +24,7 @@ namespace ExcelTabellenAuswerung
             .CreateDefaultBuilder()
             .ConfigureAppConfiguration(c =>
             {
-                c.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location));
+                c.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!);
             })
             .ConfigureServices((context, services) =>
             {
@@ -53,27 +53,11 @@ namespace ExcelTabellenAuswerung
         {
             base.OnStartup(e);
 
-            var commonpath = GetFolderPath(SpecialFolder.CommonApplicationData);
-            var path = Path.Combine(commonpath, "ExcelTabellenAuswertung\\logs");
-
-            if (Directory.Exists(path) == false)
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            Log.Logger = new LoggerConfiguration()
-             .MinimumLevel.Debug()
-             .WriteTo.Console()
-             .WriteTo.File(path + "\\app.log", rollingInterval: RollingInterval.Day)
-             .CreateLogger();
-
-            Log.Information("Anwendung gestartet");
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            Log.Information("Anwendung wird beendet");
-            Log.CloseAndFlush();
+
             base.OnExit(e);
         }
 

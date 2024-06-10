@@ -13,22 +13,22 @@ public partial class DashboardViewModel : ObservableObject
 {
     [ObservableProperty] private int _counter = 0;
 
-    [ObservableProperty] private ISeries[] _series;
-    [ObservableProperty] private ISeries[] _seriesYear;
+    [ObservableProperty] private ISeries[]? _series;
+    [ObservableProperty] private ISeries[]? _seriesYear;
 
-    [ObservableProperty] private ISeries[] _seriesStroke;
+    [ObservableProperty] private ISeries[]? _seriesStroke;
 
-    [ObservableProperty] private PolarAxis[] _angleAxes;
+    [ObservableProperty] private PolarAxis[]? _angleAxes;
 
-    [ObservableProperty] private PolarAxis[] _radiusAxes;
+    [ObservableProperty] private PolarAxis[]? _radiusAxes;
 
-    [ObservableProperty] private Axis[] _xAxes;
+    [ObservableProperty] private Axis[]? _xAxes;
 
-    [ObservableProperty] private Axis[] _yAxes;
+    [ObservableProperty] private Axis[]? _yAxes;
 
-    [ObservableProperty] private Axis[] _xAxesYear;
+    [ObservableProperty] private Axis[]? _xAxesYear;
 
-    [ObservableProperty] private Axis[] _yAxesYear;
+    [ObservableProperty] private Axis[]? _yAxesYear;
 
 
     public DashboardViewModel()

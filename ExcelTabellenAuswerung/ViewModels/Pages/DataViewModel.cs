@@ -14,7 +14,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
     public partial class DataViewModel : ObservableObject, INavigationAware
     {
         private bool _isInitialized = false;
-        private readonly SynchronizationContext context = SynchronizationContext.Current;
+        private readonly SynchronizationContext? context = SynchronizationContext.Current;
         private readonly IContentDialogService _contentDialogService;
 
         [ObservableProperty]
@@ -32,7 +32,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
         private string _searchText = string.Empty;
 
         [ObservableProperty]
-        private ObservableCollection<EmergencyCase> _emergencyCaseList = [];
+        private ObservableCollection<EmergencyCase?> _emergencyCaseList = [];
 
         public bool IsInitialized { get; internal set; }
 
@@ -40,10 +40,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
         {
             _contentDialogService = contentDialogService;
 
-            Task.Run(() =>
-            {
-                _ = LoadInformation();
-            });
+            Task.Run(LoadInformation);
         }
 
         public async void OnDoubleClick(object parameter)
@@ -59,7 +56,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
                 {
 
                     EmergencyCaseDataBase emergencyCaseDataBase = new EmergencyCaseDataBase();
-                    var found = EmergencyCaseList.FirstOrDefault(x => x.Id == item.Id);
+                    var found = EmergencyCaseList.FirstOrDefault(x => x != null && x.Id == item.Id);
                     int i = EmergencyCaseList.IndexOf(found);
                     EmergencyCaseList[i] = emergencyCaseDataBase.Get(item.Id);
 
@@ -67,14 +64,14 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
             }
         }
 
-        private async Task LoadInformation()
+        private void LoadInformation()
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             EmergencyCaseDataBase emergencyCaseDataBase = new EmergencyCaseDataBase();
             List<Models.EmergencyCase> emergencyCases = emergencyCaseDataBase.LoadData();
 
 
-            EmergencyCaseList = new ObservableCollection<EmergencyCase>(emergencyCases);
+            EmergencyCaseList = new ObservableCollection<EmergencyCase?>(emergencyCases);
 
             stopwatch.Stop();
 
@@ -134,7 +131,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
             stopwatch = Stopwatch.StartNew();
 
             List<Models.EmergencyCase> emergencyCases = emergencyCaseDataBase.LoadData();
-            EmergencyCaseList = new ObservableCollection<EmergencyCase>(emergencyCases);
+            EmergencyCaseList = new ObservableCollection<EmergencyCase?>(emergencyCases);
             // Loggen der Dauer der Operation
             Log.Information("Die LoadData dauerte {Duration} Millisekunden.", stopwatch.ElapsedMilliseconds);
 
@@ -181,7 +178,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
             stopwatch = Stopwatch.StartNew();
 
             List<Models.EmergencyCase> emergencyCases = emergencyCaseDataBase.LoadData();
-            EmergencyCaseList = new ObservableCollection<EmergencyCase>(emergencyCases);
+            EmergencyCaseList = new ObservableCollection<EmergencyCase?>(emergencyCases);
             // Loggen der Dauer der Operation
             Log.Information("Die LoadData dauerte {Duration} Millisekunden.", stopwatch.ElapsedMilliseconds);
 
