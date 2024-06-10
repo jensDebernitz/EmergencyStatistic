@@ -24,5 +24,5 @@ jobs:
         run: |
           dotnet tool install -g vpk
           vpk download github --repoUrl https:/github.com/jensDebernitz/EmergencyStatistic
-          vpk pack -u MyUniqueIdentifier -v ${{ steps.get-version.outputs.version }} -p publish
+          vpk pack -u ExcelTabellenAuswerung -v ${{ steps.get-version.outputs.version }} -p publish
           vpk upload github --repoUrl https:/github.com/jensDebernitz/EmergencyStatistic --publish --releaseName "EmergencyStatistic ${{ steps.get-version.outputs.version }}" --tag v${{ steps.get-version.outputs.version }}
