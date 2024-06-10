@@ -58,7 +58,7 @@ namespace ExcelTabellenAuswerung
         private static void UpdateMyApp()
         {
             Log.Information("Check Updates avaible");
-            var mgr = new UpdateManager(new GitHubSource("https://github.com/jensDebernitz/EmergencyStatistic"));
+            var mgr = new UpdateManager(new GithubSource("https://github.com/jensDebernitz/EmergencyStatistic", null, false));
 
 
             
