@@ -41,15 +41,6 @@ namespace ExcelTabellenAuswerung
 
                 //// It's important to Run() the VelopackApp as early as possible in app startup.
                 VelopackApp.Build().Run();
-
-                try
-                {
-                    UpdateMyApp();
-                }
-                catch (Exception e)
-                {
-                    Log.Error(e, e.Message);
-                }
                 
                 // We can now launch the WPF application as normal.
                 var app = new App();

@@ -48,5 +48,26 @@
             Text="Über Excel Tabellen Auswertung" />
         <TextBlock Margin="0,12,0,0" Text="{Binding ViewModel.AppVersion, Mode=OneWay}" />
         <TextBlock Margin="0,12,0,0" Text="{Binding ViewModel.Author, Mode=OneWay}" />
+        <StackPanel>
+            <TextBlock Margin="10" Text="{Binding ViewModel.TextStatus, Mode=OneWay}" />
+            <StackPanel Margin="10" Orientation="Horizontal">
+                <Button
+                    Padding="10,5"
+                    Command="{Binding ViewModel.CheckForUpdateCommand, Mode=OneWay}"
+                    Content="Check for Updates"
+                    IsEnabled="{Binding ViewModel.CheckUpdateEnable, Mode=OneWay}" />
+                <Button
+                    Margin="10,0"
+                    Padding="10,5"
+                    Command="{Binding ViewModel.DownloadUpdateCommand, Mode=OneWay}"
+                    Content="Download"
+                    IsEnabled="{Binding ViewModel.DownloadUpdateEnable, Mode=OneWay}" />
+                <Button
+                    Padding="10,5"
+                    Command="{Binding ViewModel.RestartAndApplyCommand, Mode=OneWay}"
+                    Content="Restart &amp; Apply"
+                    IsEnabled="{Binding ViewModel.RestartAndApplyEnable, Mode=OneWay}" />
+            </StackPanel>
+        </StackPanel>
     </StackPanel>
 </Page>
