@@ -130,9 +130,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
         private void Progress(int percent)
         {
-            
-                TextStatus = $"Downloading ({percent}%)...";
-            
+            TextStatus = $"Downloading ({percent}%)...";
         }
 
 

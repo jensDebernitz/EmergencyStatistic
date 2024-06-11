@@ -13,89 +13,90 @@ using System.Windows.Threading;
 using Wpf.Ui;
 
 
-namespace ExcelTabellenAuswerung
+namespace ExcelTabellenAuswerung;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App
+    private static readonly IHost _host = Host
+        .CreateDefaultBuilder()
+        .ConfigureAppConfiguration(c =>
+        {
+            c.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!);
+        })
+        .ConfigureServices((context, services) =>
+        {
+            services.AddHostedService<ApplicationHostService>();
+
+            services.AddSingleton<IPageService, PageService>();
+            services.AddSingleton<IThemeService, ThemeService>();
+            services.AddSingleton<ITaskBarService, TaskBarService>();
+            services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<IContentDialogService, ContentDialogService>();
+
+            // Main window with navigation
+            services.AddSingleton<INavigationWindow, MainWindow>();
+            services.AddSingleton<MainWindowViewModel>();
+
+            services.AddSingleton<DashboardPage>();
+            services.AddSingleton<DashboardViewModel>();
+            services.AddSingleton<DataPage>();
+            services.AddSingleton<DataViewModel>();
+            services.AddSingleton<SettingsPage>();
+            services.AddSingleton<SettingsViewModel>();
+            services.AddSingleton<ISnackbarService, SnackbarService>();
+        }).Build();
+
+
+    protected override void OnStartup(StartupEventArgs e)
     {
-        private static readonly IHost _host = Host
-            .CreateDefaultBuilder()
-            .ConfigureAppConfiguration(c =>
-            {
-                c.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!);
-            })
-            .ConfigureServices((context, services) =>
-            {
-                services.AddHostedService<ApplicationHostService>();
+        base.OnStartup(e);
 
-                services.AddSingleton<IPageService, PageService>();
-                services.AddSingleton<IThemeService, ThemeService>();
-                services.AddSingleton<ITaskBarService, TaskBarService>();
-                services.AddSingleton<INavigationService, NavigationService>();
-                services.AddSingleton<IContentDialogService, ContentDialogService>();
+    }
 
-                // Main window with navigation
-                services.AddSingleton<INavigationWindow, MainWindow>();
-                services.AddSingleton<MainWindowViewModel>();
+    protected override void OnExit(ExitEventArgs e)
+    {
 
-                services.AddSingleton<DashboardPage>();
-                services.AddSingleton<DashboardViewModel>();
-                services.AddSingleton<DataPage>();
-                services.AddSingleton<DataViewModel>();
-                services.AddSingleton<SettingsPage>();
-                services.AddSingleton<SettingsViewModel>();
-            }).Build();
+        base.OnExit(e);
+    }
 
+    /// <summary>
+    /// Gets registered service.
+    /// </summary>
+    /// <typeparam name="T">Type of the service to get.</typeparam>
+    /// <returns>Instance of the service or <see langword="null"/>.</returns>
+    public static T GetService<T>()
+        where T : class
+    {
+        return _host.Services.GetService(typeof(T)) as T;
+    }
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
+    /// <summary>
+    /// Occurs when the application is loading.
+    /// </summary>
+    private void OnStartup(object sender, StartupEventArgs e)
+    {
+        _host.Start();
+    }
 
-        }
+    /// <summary>
+    /// Occurs when the application is closing.
+    /// </summary>
+    private async void OnExit(object sender, ExitEventArgs e)
+    {
+        await _host.StopAsync();
 
-        protected override void OnExit(ExitEventArgs e)
-        {
+        _host.Dispose();
+    }
 
-            base.OnExit(e);
-        }
-
-        /// <summary>
-        /// Gets registered service.
-        /// </summary>
-        /// <typeparam name="T">Type of the service to get.</typeparam>
-        /// <returns>Instance of the service or <see langword="null"/>.</returns>
-        public static T GetService<T>()
-            where T : class
-        {
-            return _host.Services.GetService(typeof(T)) as T;
-        }
-
-        /// <summary>
-        /// Occurs when the application is loading.
-        /// </summary>
-        private void OnStartup(object sender, StartupEventArgs e)
-        {
-            _host.Start();
-        }
-
-        /// <summary>
-        /// Occurs when the application is closing.
-        /// </summary>
-        private async void OnExit(object sender, ExitEventArgs e)
-        {
-            await _host.StopAsync();
-
-            _host.Dispose();
-        }
-
-        /// <summary>
-        /// Occurs when an exception is thrown by an application but not handled.
-        /// </summary>
-        private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-        {
-            // For more info see https://docs.microsoft.com/en-us/dotnet/api/system.windows.application.dispatcherunhandledexception?view=windowsdesktop-6.0
-        }
+    /// <summary>
+    /// Occurs when an exception is thrown by an application but not handled.
+    /// </summary>
+    private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    {
+        // For more info see https://docs.microsoft.com/en-us/dotnet/api/system.windows.application.dispatcherunhandledexception?view=windowsdesktop-6.0
     }
 }
+

@@ -80,6 +80,18 @@ namespace ExcelTabellenAuswerung.Controls
             string emergencyRmc = textBoxIvenaRMC.Text;
             string hospitalRmc = textIvenaRMC.Text;
 
+            if (string.IsNullOrEmpty(emergencyRmc))
+            {
+                bewusstsein = Models.Scaling.noMeasure;
+                atmung = Models.Scaling.noMeasure;
+                kreislauf = Models.Scaling.noMeasure;
+                verletzung = Models.Scaling.noMeasure;
+                neurologie = Models.Scaling.noMeasure;
+                schmerz = Models.Scaling.noMeasure;
+
+                return;
+            }
+
             int emergencyCode1 = Convert.ToInt32(emergencyRmc.Substring(0, 1));
             int hospitalCode1 = Convert.ToInt32(hospitalRmc.Substring(0, 1));
 

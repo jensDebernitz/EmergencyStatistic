@@ -111,161 +111,89 @@
                             <!--<ui:GridViewColumn Width="50"  DisplayMemberBinding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Header="Id" />
                             <ui:GridViewColumn Width="130" DisplayMemberBinding="{Binding InternalId, UpdateSourceTrigger=PropertyChanged}" Header="Protokollnummer" />-->
                             <ui:GridViewColumn
-                                Width="110"
-                                DisplayMemberBinding="{Binding EmergencyDate, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Einsatzdatum" />
-                            <ui:GridViewColumn
                                 Width="120"
-                                DisplayMemberBinding="{Binding RadioName, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Funkname" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding BasicKeyword, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding GrundStichwort, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Grundstichwort" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding TypeOfUse, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Einsatzart" />
                             <ui:GridViewColumn
                                 Width="120"
                                 DisplayMemberBinding="{Binding Diagnosis, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Diagnose" />
                             <ui:GridViewColumn
                                 Width="120"
+                                DisplayMemberBinding="{Binding IcdCode, UpdateSourceTrigger=PropertyChanged}"
+                                Header="ICD Code" />
+                            <ui:GridViewColumn
+                                Width="110"
+                                DisplayMemberBinding="{Binding EinsatzDatum, UpdateSourceTrigger=PropertyChanged}"
+                                Header="Einsatzdatum" />
+                            <ui:GridViewColumn
+                                Width="110"
+                                DisplayMemberBinding="{Binding EinsatzOrtStrasseNummer, UpdateSourceTrigger=PropertyChanged}"
+                                Header="Einsatz Ort" />
+                            <ui:GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding Funkname, UpdateSourceTrigger=PropertyChanged}"
+                                Header="Funkname" />
+                            <ui:GridViewColumn
+                                Width="120"
                                 DisplayMemberBinding="{Binding TransportZiel, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Transportziel" />
                             <ui:GridViewColumn
                                 Width="120"
-                                DisplayMemberBinding="{Binding IcdCode, UpdateSourceTrigger=PropertyChanged}"
-                                Header="ICD Code" />
+                                DisplayMemberBinding="{Binding ZeitAnkunftPatient, UpdateSourceTrigger=PropertyChanged}"
+                                Header="Zeit Ankunft Patient" />
                             <ui:GridViewColumn
                                 Width="120"
-                                DisplayMemberBinding="{Binding Befund2Atmung, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Befund 2 Atmung" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding Befund1Blutdrucksystolisch, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Befund 1 Blutdruck Sys" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding TimeTransportBegin, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberBinding="{Binding ZeitTransportBeginn, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Zeit Transport Beginn" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding PatientAge, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Patient Alter" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding Befund2BlutdruckSystolisch, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Befund 2 Blutdruch Sys" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding Befund2Bewusstlage, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Befund 2 Bewusstlage" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding Befund1HerzFrequenz, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Befund 1 Herz Freq" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding Befund2BlutdruckDiastolisch, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Befund 2 Blutdruck Dia" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding Befund2HerzFrequenz, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Befund 2 Herz Freq" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding Befund2Gcs, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Befund 2 GCS" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding Befund1BlutdruckDiastolisch, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Befund 1 Blutdruck Dia" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding EinsatzID, UpdateSourceTrigger=PropertyChanged}"
-                                Header="EinsatzID" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding AlarmTime, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Zeit Alarm" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding TimeSymptonBegin, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Zeit Symptom Beginn" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding UnfallMechanismus, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Unfallmechanismus" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding DiagnoseGruppe, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Diagnose Gruppe" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding Befund1EtCO2, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Befund 1 EtCO2" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding Befund2EtCO2, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Befund 2 EtCO2" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding Befund1Psyche, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Befund 1 Psyche" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding DiagnoseCode, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Diagnose Code" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding Reanimation, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Reanimation" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding Beatmung, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Beatmung" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding ReaniZeitEOFirstResp, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Reani Zeit EO First Resp" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding ReaniKollapsBeobDurch, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Reani Kollaps Beob durch" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding ReaniBeginnHDMDurch, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Reani Beginn HDM durch" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding TransportZielOrt, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Transportziel Ort" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding TimeAnkunftEinsatzOrt, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Zeit Ankunft Einsatzort" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding PatientGeschlecht, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Patient Geschlecht" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding AmbulanteVersorgung, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Ambulante Versorgung" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding NacaScore, UpdateSourceTrigger=PropertyChanged}"
-                                Header="NACA Score" />
                             <ui:GridViewColumn
                                 Width="120"
                                 DisplayMemberBinding="{Binding Befund1Zucker, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Befund 1 Zucker" />
                             <ui:GridViewColumn
                                 Width="120"
+                                DisplayMemberBinding="{Binding Befund1HerzFrequenz, UpdateSourceTrigger=PropertyChanged}"
+                                Header="Befund 1 Herz Freq" />
+                            <ui:GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding Befund1Blutdrucksystolisch, UpdateSourceTrigger=PropertyChanged}"
+                                Header="Befund 1 Blutdruck Sys" />
+                            <ui:GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding Befund1BlutdruckDiastolisch, UpdateSourceTrigger=PropertyChanged}"
+                                Header="Befund 1 Blutdruck Dia" />
+                            <ui:GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding Befund1Bewusstlage, UpdateSourceTrigger=PropertyChanged}"
+                                Header="Befund 1 Bewusstlage" />
+                            <ui:GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding Befund1GCS, UpdateSourceTrigger=PropertyChanged}"
+                                Header="Befund 1 GCS" />
+                            <ui:GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding NacaScore, UpdateSourceTrigger=PropertyChanged}"
+                                Header="NACA Score" />
+                            <ui:GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding DiagnoseGruppe, UpdateSourceTrigger=PropertyChanged}"
+                                Header="Diagnose Gruppe" />
+                            <ui:GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding DiagnoseCode, UpdateSourceTrigger=PropertyChanged}"
+                                Header="Diagnose Code" />
+                            <ui:GridViewColumn
+                                Width="120"
                                 DisplayMemberBinding="{Binding UnfallHergang, UpdateSourceTrigger=PropertyChanged}"
                                 Header="Unfallhergang" />
+                            <ui:GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding PatientGeschlecht, UpdateSourceTrigger=PropertyChanged}"
+                                Header="Patient Geschlecht" />
+                            <ui:GridViewColumn
+                                Width="120"
+                                DisplayMemberBinding="{Binding TransportZiel, UpdateSourceTrigger=PropertyChanged}"
+                                Header="Transportziel Ort" />
                             <ui:GridViewColumn
                                 Width="120"
                                 DisplayMemberBinding="{Binding IvenaAnmaledeCode, UpdateSourceTrigger=PropertyChanged}"
@@ -278,14 +206,6 @@
                                 Width="120"
                                 DisplayMemberBinding="{Binding IvenaRmz, UpdateSourceTrigger=PropertyChanged}"
                                 Header="IVENA RMZ" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding TimeTransportBegin, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Zeit Transport Beginn" />
-                            <ui:GridViewColumn
-                                Width="120"
-                                DisplayMemberBinding="{Binding TimeAnkunftPatient, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Zeit Ankunft Patient" />
                         </ui:GridView>
                     </ui:ListView.View>
                 </ui:ListView>

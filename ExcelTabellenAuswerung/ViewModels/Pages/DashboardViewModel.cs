@@ -283,7 +283,7 @@ public partial class DashboardViewModel : ObservableObject
     {
         var countOfThMonth = tempList.Count(x =>
         {
-            if (DateTime.TryParse(x.EmergencyDate, out DateTime parseDateTime))
+            if (DateTime.TryParse(x.EinsatzDatum, out DateTime parseDateTime))
             {
                 return parseDateTime.Month == DateTime.Now.AddMonths(monthBack).Month;
             }
@@ -320,7 +320,7 @@ public partial class DashboardViewModel : ObservableObject
 
         IEnumerable<EmergencyCase> returnList = list.Where(x =>
         {
-            if (DateTime.TryParse(x.EmergencyDate, out DateTime parseDateTime))
+            if (DateTime.TryParse(x.EinsatzDatum, out DateTime parseDateTime))
             {
                 if (parseDateTime.Year != lastYear)
                 {
@@ -335,7 +335,7 @@ public partial class DashboardViewModel : ObservableObject
         List<string> returnList2 = new List<string>();
         foreach (EmergencyCase emergencyCase in returnList)
         {
-            if (DateTime.TryParse(emergencyCase.EmergencyDate, out DateTime parseDateTime))
+            if (DateTime.TryParse(emergencyCase.EinsatzDatum, out DateTime parseDateTime))
             {
                 returnList2.Add(parseDateTime.Year.ToString());
             }
@@ -354,7 +354,7 @@ public partial class DashboardViewModel : ObservableObject
 
             var count = list.Count(x =>
             {
-                if (DateTime.TryParse(x.EmergencyDate, out DateTime parseDateTime))
+                if (DateTime.TryParse(x.EinsatzDatum, out DateTime parseDateTime))
                 {
                     if (parseDateTime.Year == Convert.ToInt32(year))
                     {
