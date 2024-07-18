@@ -17,22 +17,17 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
         private readonly SynchronizationContext? context = SynchronizationContext.Current;
         private readonly IContentDialogService _contentDialogService;
 
-        [ObservableProperty]
-        private Visibility _openedFilePathVisibilityData1 = Visibility.Collapsed;
+        [ObservableProperty] private Visibility _openedFilePathVisibilityData1 = Visibility.Collapsed;
 
-        [ObservableProperty]
-        private Visibility _openedFilePathVisibilityData2 = Visibility.Collapsed;
+        [ObservableProperty] private Visibility _openedFilePathVisibilityData2 = Visibility.Collapsed;
 
-        [ObservableProperty]
-        private string _openedFilePathData1 = string.Empty;
+        [ObservableProperty] private string _openedFilePathData1 = string.Empty;
 
-        [ObservableProperty]
-        private string _openedFilePathData2 = string.Empty;
+        [ObservableProperty] private string _openedFilePathData2 = string.Empty;
 
         private string _searchText = string.Empty;
 
-        [ObservableProperty]
-        private ObservableCollection<EmergencyCase?> _emergencyCaseList = [];
+        [ObservableProperty] private ObservableCollection<EmergencyCase?> _emergencyCaseList = [];
 
         public bool IsInitialized { get; internal set; }
 
@@ -45,7 +40,8 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
         public async void OnDoubleClick(object parameter)
         {
-            var item = parameter as EmergencyCase; // MyItemType sollte durch den tatsächlichen Typ deines Items ersetzt werden
+            var
+                item = parameter as EmergencyCase; // MyItemType sollte durch den tatsächlichen Typ deines Items ersetzt werden
             if (item != null)
             {
 
@@ -85,7 +81,9 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
                 InitializeViewModel();
         }
 
-        public void OnNavigatedFrom() { }
+        public void OnNavigatedFrom()
+        {
+        }
 
         private void InitializeViewModel()
         {
@@ -114,6 +112,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
             {
                 return;
             }
+
             Stopwatch stopwatch = Stopwatch.StartNew();
             Helpers.ExcelReader excelReader = new Helpers.ExcelReader();
             int newImported = excelReader.ReadExcelFileData1(openFileDialog.FileName);
@@ -161,6 +160,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
             {
                 return;
             }
+
             Stopwatch stopwatch = Stopwatch.StartNew();
             Helpers.ExcelReader excelReader = new Helpers.ExcelReader();
             int newImported = excelReader.ReadExcelFileData2(openFileDialog.FileName);
@@ -185,6 +185,28 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
             OpenedFilePathData2 = newImported.ToString();
             OpenedFilePathVisibilityData2 = Visibility.Visible;
+        }
+
+        [RelayCommand]
+        public async Task OnOpenFileImportDocuments()
+        {
+            OpenFolderDialog openFolderDialog = new ()
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            };
+
+            if (openFolderDialog.ShowDialog() != true)
+            {
+                return;
+            }
+
+            if (!Directory.Exists(openFolderDialog.FolderName))
+            {
+                return;
+            }
+
+            Helpers.ExcelReader excelReader = new Helpers.ExcelReader();
+            excelReader.SavePdf(new DirectoryInfo(openFolderDialog.FolderName));
         }
     }
 }

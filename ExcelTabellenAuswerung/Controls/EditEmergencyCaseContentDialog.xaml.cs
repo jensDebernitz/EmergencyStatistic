@@ -5,6 +5,9 @@ using System.Windows.Media;
 using Wpf.Ui.Controls;
 using System.Text.RegularExpressions;
 using ExcelTabellenAuswerung.Models;
+using LiteDB;
+using System.IO;
+using static System.Environment;
 
 namespace ExcelTabellenAuswerung.Controls
 {
@@ -15,6 +18,7 @@ namespace ExcelTabellenAuswerung.Controls
     {
         private int _id;
         private Models.EmergencyCase _emergencyCase;
+
         public EditDataContentDialog(ContentPresenter? contentPresenter, int id) : base(contentPresenter)
         {
             DataBase.EmergencyCaseDataBase emergencyCaseDataBase = new DataBase.EmergencyCaseDataBase();
@@ -447,6 +451,29 @@ namespace ExcelTabellenAuswerung.Controls
                         break;
                 }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            using (var db = new LiteDatabase(Helpers.DataBase.DataBaseFileDocuments()))
+            {
+                var fileStorage = db.FileStorage;
+                List<LiteFileInfo<string>> fileInfo = fileStorage.Find(x => x.Id.Contains(_emergencyCase.InternalId)).ToList();
+
+                if (fileInfo != null && fileInfo.Count > 0)
+                {
+                    string filePath = GetFolderPath(SpecialFolder.CommonApplicationData) + "/" + fileInfo[0].Filename;
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                    {
+                        fileInfo[0].CopyTo(fileStream);
+                        WebBrowser webBrowser = new WebBrowser();
+                        webBrowser.Navigate(filePath);
+                    }
+                }
+            }
+
+
         }
     }
 }

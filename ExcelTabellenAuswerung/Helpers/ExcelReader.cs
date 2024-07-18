@@ -1,8 +1,11 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Wordprocessing;
 using ExcelTabellenAuswerung.DataBase;
 using ExcelTabellenAuswerung.Models;
+using LiteDB;
 using Serilog;
 using System.Diagnostics;
+using System.IO;
 
 namespace ExcelTabellenAuswerung.Helpers
 {
@@ -184,6 +187,34 @@ namespace ExcelTabellenAuswerung.Helpers
             }
 
             return newReadRows;
+        }
+
+        public void SavePdf(DirectoryInfo folder)
+        {
+            List<FileInfo> files = folder.GetFiles("*.pdf", SearchOption.AllDirectories).ToList();
+
+            foreach (FileInfo fileInfo in files)
+            {
+                string fileName = fileInfo.Name.Replace(".pdf", "");
+                fileName = fileName.ToLower().Replace("naprot_", "");
+
+                using (var db = new LiteDatabase(Helpers.DataBase.DataBaseFileDocuments()))
+                {
+                    // Zugriff auf den FileStorage-Bereich der Datenbank
+                    var fileStorage = db.FileStorage;
+
+                    // Speichern der PDF-Datei in der Datenbank
+                    using (var fileStream = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read))
+                    {
+                        fileStorage.Upload(fileName, fileInfo.FullName, fileStream);
+                    }
+
+                    Log.Information("PDF gespeichert.");
+                    File.Delete(fileInfo.FullName);
+                }
+
+               
+            }
         }
     }
 }

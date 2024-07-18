@@ -62,6 +62,12 @@
                             Text="{Binding ViewModel.OpenedFilePathData2}" />
                     </StackPanel>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <ui:Button
+                        Grid.Column="0"
+                        Command="{Binding ViewModel.OpenFileImportDocumentsCommand}"
+                        Content="Dokumente importieren" />
+                </StackPanel>
             </StackPanel>
         </Grid>
 
