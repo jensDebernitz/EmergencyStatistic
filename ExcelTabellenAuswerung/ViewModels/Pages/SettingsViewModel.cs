@@ -1,14 +1,15 @@
 ﻿using ExcelTabellenAuswerung.DataBase;
 using System.Text;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Serilog;
 using Velopack;
 using Velopack.Sources;
-using Wpf.Ui.Appearance;
-using Wpf.Ui.Controls;
+using MaterialDesignThemes.Wpf;
 
 namespace ExcelTabellenAuswerung.ViewModels.Pages
 {
-    public partial class SettingsViewModel : ObservableObject, INavigationAware
+    public partial class SettingsViewModel : ObservableObject
     {
         private bool _isInitialized = false;
 
@@ -31,22 +32,19 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
         private bool _restartAndApplyEnable = false;
 
         [ObservableProperty]
-        private ApplicationTheme _currentTheme = ApplicationTheme.Unknown;
+        private BaseTheme _currentTheme = BaseTheme.Light;
 
         private UpdateManager _updateManager;
         private UpdateInfo _update;
 
-        public void OnNavigatedTo()
+        public SettingsViewModel()
         {
             if (!_isInitialized)
                 InitializeViewModel();
         }
-
-        public void OnNavigatedFrom() { }
-
+        
         private void InitializeViewModel()
         {
-            CurrentTheme = ApplicationThemeManager.GetAppTheme();
             AppVersion = $"Excel Tabellen Auswertung - {GetAssemblyVersion()}";
             Author = "rot weiße Grüße von Jens Debernitz";
             _updateManager = new UpdateManager(new GithubSource("https://github.com/jensDebernitz/EmergencyStatistic", null, false));
@@ -105,25 +103,29 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
         private void OnChangeTheme(string parameter)
         {
             SettingsDataBase settingsDataBase = new SettingsDataBase();
+            var paletteHelper = new PaletteHelper();
+            var theme = paletteHelper.GetTheme();
 
             switch (parameter)
             {
                 case "theme_light":
-                    if (CurrentTheme == ApplicationTheme.Light)
+                    if (CurrentTheme == BaseTheme.Light)
                         break;
 
-                    ApplicationThemeManager.Apply(ApplicationTheme.Light);
-                    CurrentTheme = ApplicationTheme.Light;
+                    theme.SetBaseTheme(BaseTheme.Light);
+                    CurrentTheme = BaseTheme.Light;
                     settingsDataBase.SaveTheme(CurrentTheme);
+                    paletteHelper.SetTheme(theme);
                     break;
 
                 default:
-                    if (CurrentTheme == ApplicationTheme.Dark)
+                    if (CurrentTheme == BaseTheme.Dark)
                         break;
 
-                    ApplicationThemeManager.Apply(ApplicationTheme.Dark);
-                    CurrentTheme = ApplicationTheme.Dark;
+                    theme.SetBaseTheme(BaseTheme.Dark);
+                    CurrentTheme = BaseTheme.Dark;
                     settingsDataBase.SaveTheme(CurrentTheme);
+                    paletteHelper.SetTheme(theme);
                     break;
             }
         }

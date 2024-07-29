@@ -5,6 +5,9 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
 using System.Globalization;
+using CommunityToolkit.Mvvm.ComponentModel;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using Scaling = ExcelTabellenAuswerung.Models.Scaling;
 
 
 namespace ExcelTabellenAuswerung.ViewModels.Pages;

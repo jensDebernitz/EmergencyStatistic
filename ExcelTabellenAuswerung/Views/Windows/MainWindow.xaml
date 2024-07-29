@@ -1,76 +1,167 @@
-﻿<ui:FluentWindow
+﻿<Window
     x:Class="ExcelTabellenAuswerung.Views.Windows.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:ExcelTabellenAuswerung.Views.Windows"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
+    Title="MainWindow"
     Width="1100"
     Height="650"
     d:DataContext="{d:DesignInstance local:MainWindow,
                                      IsDesignTimeCreatable=True}"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
-    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    ExtendsContentIntoTitleBar="True"
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    WindowBackdropType="Mica"
-    WindowCornerPreference="Round"
-    WindowStartupLocation="CenterScreen"
     WindowState="Maximized"
     mc:Ignorable="d">
-    <ui:FluentWindow.InputBindings>
-        <KeyBinding
-            Key="F"
-            Command="{Binding ElementName=AutoSuggestBox, Path=FocusCommand}"
-            Modifiers="Control" />
-    </ui:FluentWindow.InputBindings>
 
-    <Grid>
-        <ui:TitleBar
-            x:Name="TitleBar"
-            Title="{Binding ViewModel.ApplicationTitle}"
-            Grid.Row="0"
-            CloseWindowByDoubleClickOnIcon="True">
-            <ui:TitleBar.Icon>
-                <ui:ImageIcon Source="pack://application:,,,/Assets/wpfui-icon-256.png" />
-            </ui:TitleBar.Icon>
-        </ui:TitleBar>
+    <materialDesign:DialogHost DialogTheme="Inherit" Identifier="RootDialog">
+        <Border Margin="0,0,0,0" Style="{DynamicResource PanelBorder}">
+            <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+                <materialDesign:DrawerHost.LeftDrawerContent>
+                    <DockPanel MinWidth="150">
+                        <StackPanel HorizontalAlignment="Left" DockPanel.Dock="Top">
+                            <ToggleButton
+                                Margin="16"
+                                HorizontalAlignment="Right"
+                                IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"
+                                Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
 
-        <ui:NavigationView
-            x:Name="RootNavigation"
-            Padding="42,0,42,0"
-            BreadcrumbBar="{Binding ElementName=BreadcrumbBar}"
-            FooterMenuItemsSource="{Binding ViewModel.FooterMenuItems, Mode=OneWay}"
-            FrameMargin="0"
-            IsBackButtonVisible="Visible"
-            IsPaneToggleVisible="True"
-            MenuItemsSource="{Binding ViewModel.MenuItems, Mode=OneWay}"
-            OpenPaneLength="310"
-            PaneDisplayMode="Left"
-            TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}">
-            <ui:NavigationView.Header>
-                <ui:BreadcrumbBar x:Name="BreadcrumbBar" Margin="42,32,42,20" />
-            </ui:NavigationView.Header>
-            <ui:NavigationView.AutoSuggestBox>
-                <ui:AutoSuggestBox x:Name="AutoSuggestBox" PlaceholderText="Search">
-                    <ui:AutoSuggestBox.Icon>
-                        <ui:IconSourceElement>
-                            <ui:SymbolIconSource Symbol="Search24" />
-                        </ui:IconSourceElement>
-                    </ui:AutoSuggestBox.Icon>
-                </ui:AutoSuggestBox>
-            </ui:NavigationView.AutoSuggestBox>
-            <ui:NavigationView.ContentOverlay>
-                <Grid>
-                    <ui:SnackbarPresenter x:Name="SnackbarPresenter" />
-                </Grid>
-            </ui:NavigationView.ContentOverlay>
-        </ui:NavigationView>
+                            <TextBox
+                                x:Name="ItemsSearchBox"
+                                Width="150"
+                                Margin="16,4"
+                                materialDesign:HintAssist.Hint="Suchen"
+                                materialDesign:HintAssist.IsFloating="True"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                                materialDesign:TextFieldAssist.HasClearButton="True"
+                                materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                materialDesign:TextFieldAssist.TextFieldCornerRadius="0"
+                                DockPanel.Dock="Top"
+                                Text="{Binding ViewModel.SearchKeyword, UpdateSourceTrigger=PropertyChanged}" />
 
-        <ContentPresenter x:Name="RootContentDialog" Grid.Row="0" />
-    </Grid>
-</ui:FluentWindow>
+                            <ListBox
+                                x:Name="ItemsListBox"
+                                Width="170"
+                                Margin="35,16,35,0"
+                                AutomationProperties.Name="PagesListBox"
+                                ItemsSource="{Binding ViewModel.Items}"
+                                PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp"
+                                SelectedIndex="{Binding ViewModel.SelectedIndex}"
+                                SelectedItem="{Binding ViewModel.SelectedItem, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource MaterialDesignNavigationPrimaryListBox}">
+                                <ListBox.Resources>
+                                    <Style BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" TargetType="ScrollBar" />
+                                </ListBox.Resources>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="burgermenu:Items">
+                                        <TextBlock
+                                            Margin="24,4,0,4"
+                                            AutomationProperties.AutomationId="ItemPage"
+                                            Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
+                                            Text="{Binding ShownName}" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+
+                            </ListBox>
+
+                        </StackPanel>
+                        <StackPanel
+                            Height="55"
+                            VerticalAlignment="Bottom"
+                            Background="#FFDDDDDD"
+                            Cursor=""
+                            DockPanel.Dock="Bottom"
+                            Orientation="Horizontal">
+                            <Button
+                                x:Name="Itemsbuttonrad"
+                                Width="70"
+                                Height="50"
+                                Margin="0,0,0,0"
+                                VerticalAlignment="Bottom"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Command="{Binding ViewModel.ClickCommandSettingsButton}"
+                                Cursor=""
+                                FontSize="36"
+                                Foreground="#FF003366">
+
+                                <materialDesign:PackIcon
+                                    Width="24"
+                                    Height="24"
+                                    Kind="CogOutline" />
+                            </Button>
+                            <Label
+                                Width="140"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="Einstellungen"
+                                Cursor="Hand"
+                                FontSize="16">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDown">
+                                        <i:InvokeCommandAction Command="{Binding ViewModel.ClickCommandSettingsButton}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Label>
+                        </StackPanel>
+                    </DockPanel>
+                </materialDesign:DrawerHost.LeftDrawerContent>
+
+                <DockPanel>
+
+                    <materialDesign:ColorZone
+                        Padding="16"
+                        DockPanel.Dock="Top"
+                        Mode="PrimaryMid">
+                        <DockPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <ToggleButton
+                                    x:Name="MenuToggleButton"
+                                    AutomationProperties.Name="HamburgerToggleButton"
+                                    Click="MenuToggleButton_OnClick"
+                                    IsChecked="{Binding ViewModel.ToggleButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                            </StackPanel>
+
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                AutomationProperties.Name="eFormCenter"
+                                FontSize="22"
+                                Text="{Binding ViewModel.Title}" />
+
+                        </DockPanel>
+
+                    </materialDesign:ColorZone>
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <ScrollViewer
+                            x:Name="MainScrollViewer"
+                            materialDesign:ScrollViewerAssist.IsAutoHideEnabled="True"
+                            HorizontalScrollBarVisibility="{Binding ViewModel.SelectedItem.HorizontalScrollBarVisibilityRequirement, FallbackValue=Disabled}"
+                            VerticalScrollBarVisibility="{Binding ViewModel.SelectedItem.VerticalScrollBarVisibilityRequirement, FallbackValue=Disabled}">
+                            <ContentControl
+                                Grid.Row="1"
+                                Margin="{Binding MarginRequirement, FallbackValue=16}"
+                                Content="{Binding Content, UpdateSourceTrigger=PropertyChanged, FallbackValue={x:Null}}"
+                                DataContext="{Binding ViewModel.SelectedItem}"
+                                DataContextChanged="OnSelectedItemChanged" />
+                        </ScrollViewer>
+
+
+                    </Grid>
+                </DockPanel>
+            </materialDesign:DrawerHost>
+        </Border>
+    </materialDesign:DialogHost>
+
+</Window>

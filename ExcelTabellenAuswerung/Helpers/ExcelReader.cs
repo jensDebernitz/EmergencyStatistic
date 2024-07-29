@@ -6,6 +6,7 @@ using LiteDB;
 using Serilog;
 using System.Diagnostics;
 using System.IO;
+using System.Windows;
 
 namespace ExcelTabellenAuswerung.Helpers
 {

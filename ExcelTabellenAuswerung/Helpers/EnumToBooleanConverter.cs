@@ -1,6 +1,6 @@
-﻿using System.Globalization;
+﻿using MaterialDesignThemes.Wpf;
+using System.Globalization;
 using System.Windows.Data;
-using Wpf.Ui.Appearance;
 
 namespace ExcelTabellenAuswerung.Helpers
 {
@@ -13,12 +13,12 @@ namespace ExcelTabellenAuswerung.Helpers
                 throw new ArgumentException("ExceptionEnumToBooleanConverterParameterMustBeAnEnumName");
             }
 
-            if (!Enum.IsDefined(typeof(ApplicationTheme), value))
+            if (!Enum.IsDefined(typeof(BaseTheme), value))
             {
                 throw new ArgumentException("ExceptionEnumToBooleanConverterValueMustBeAnEnum");
             }
 
-            var enumValue = Enum.Parse(typeof(ApplicationTheme), enumString);
+            var enumValue = Enum.Parse(typeof(BaseTheme), enumString);
 
             return enumValue.Equals(value);
         }
@@ -30,7 +30,7 @@ namespace ExcelTabellenAuswerung.Helpers
                 throw new ArgumentException("ExceptionEnumToBooleanConverterParameterMustBeAnEnumName");
             }
 
-            return Enum.Parse(typeof(ApplicationTheme), enumString);
+            return Enum.Parse(typeof(BaseTheme), enumString);
         }
     }
 }

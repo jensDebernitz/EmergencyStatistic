@@ -3,26 +3,31 @@ using ExcelTabellenAuswerung.ViewModels.Pages;
 using Serilog;
 using System.Diagnostics;
 using System.IO;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Xml.Serialization;
-using Wpf.Ui.Controls;
 
 namespace ExcelTabellenAuswerung.Views.Pages
 {
-    public partial class DataPage : INavigableView<DataViewModel>, IDisposable
+    public partial class DataPage : UserControl, IDisposable
     {
         public DataViewModel ViewModel { get; }
         bool _shown;
 
-        public DataPage(DataViewModel viewModel)
+        public DataPage()
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
-            ViewModel = viewModel;
-            DataContext = this;
+            ViewModel = new DataViewModel();
+
 
             InitializeComponent();
+
+            DataContext = this;
+
+
+            double height = this.Height;
+
             stopwatch.Stop();
             // Loggen der Dauer der Operation
             Log.Information("Die DataPage(DataViewModel viewModel) dauerte {Duration} Millisekunden.", stopwatch.ElapsedMilliseconds);
@@ -50,7 +55,7 @@ namespace ExcelTabellenAuswerung.Views.Pages
             _isScrolling = false;
         }
 
-        private void SyncScroll(Wpf.Ui.Controls.ListView source, Wpf.Ui.Controls.ListView target, ScrollChangedEventArgs e)
+        private void SyncScroll(ListView source, ListView target, ScrollChangedEventArgs e)
         {
             if (e.VerticalChange != 0)
             {

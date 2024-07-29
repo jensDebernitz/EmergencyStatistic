@@ -1,15 +1,15 @@
-﻿using ExcelTabellenAuswerung.ViewModels.Pages;
-using Wpf.Ui.Controls;
+﻿using System.Windows.Controls;
+using ExcelTabellenAuswerung.ViewModels.Pages;
 
 namespace ExcelTabellenAuswerung.Views.Pages
 {
-    public partial class DashboardPage : INavigableView<DashboardViewModel>
+    public partial class DashboardPage : UserControl
     {
         public DashboardViewModel ViewModel { get; }
 
-        public DashboardPage(DashboardViewModel viewModel)
+        public DashboardPage()
         {
-            ViewModel = viewModel;
+            ViewModel = new DashboardViewModel();
             DataContext = this;
 
             InitializeComponent();

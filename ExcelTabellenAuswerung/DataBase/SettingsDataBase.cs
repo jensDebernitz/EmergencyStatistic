@@ -1,11 +1,11 @@
 ﻿using LiteDB;
-using Wpf.Ui.Appearance;
+using MaterialDesignThemes.Wpf;
 
 namespace ExcelTabellenAuswerung.DataBase
 {
     public class SettingsDataBase
     {
-        public void SaveTheme(ApplicationTheme theme)
+        public void SaveTheme(BaseTheme theme)
         {
             using (var db = new LiteDatabase(Helpers.DataBase.DataBaseFileSettings()))
             {
@@ -29,7 +29,7 @@ namespace ExcelTabellenAuswerung.DataBase
             }
         }
 
-        public ApplicationTheme LoadTheme()
+        public BaseTheme LoadTheme()
         {
             using (var db = new LiteDatabase(Helpers.DataBase.DataBaseFileSettings()))
             {
@@ -43,7 +43,7 @@ namespace ExcelTabellenAuswerung.DataBase
                     return item.Theme;
                 }
             }
-            return ApplicationTheme.Light;
+            return BaseTheme.Light;
         }
 
         public void SaveAppSettings(Models.AppSettings appSettings)

@@ -1,21 +1,21 @@
 ﻿using System.Collections.ObjectModel;
-using ExcelTabellenAuswerung.Controls;
 using ExcelTabellenAuswerung.DataBase;
 using ExcelTabellenAuswerung.Models;
 using Microsoft.Win32;
 using Serilog;
 using System.Diagnostics;
 using System.IO;
-using Wpf.Ui;
-using Wpf.Ui.Controls;
+using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using ExcelTabellenAuswerung.Controls;
 
 namespace ExcelTabellenAuswerung.ViewModels.Pages
 {
-    public partial class DataViewModel : ObservableObject, INavigationAware
+    public partial class DataViewModel : ObservableObject
     {
         private bool _isInitialized = false;
         private readonly SynchronizationContext? context = SynchronizationContext.Current;
-        private readonly IContentDialogService _contentDialogService;
 
         [ObservableProperty] private Visibility _openedFilePathVisibilityData1 = Visibility.Collapsed;
 
@@ -31,9 +31,9 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
         public bool IsInitialized { get; internal set; }
 
-        public DataViewModel(IContentDialogService contentDialogService)
+        public DataViewModel()
         {
-            _contentDialogService = contentDialogService;
+         
 
             Task.Run(LoadInformation);
         }
@@ -45,9 +45,9 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
             if (item != null)
             {
 
-                var editDataContentDialog = new EditDataContentDialog(_contentDialogService.GetDialogHost(), item.Id);
+                var editDataContentDialog = new EditDataContentDialog(item.Id);
 
-                _ = await editDataContentDialog.ShowAsync();
+                editDataContentDialog.ShowDialog();
                 if (EmergencyCaseList != null)
                 {
 
@@ -115,7 +115,12 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
             Stopwatch stopwatch = Stopwatch.StartNew();
             Helpers.ExcelReader excelReader = new Helpers.ExcelReader();
-            int newImported = excelReader.ReadExcelFileData1(openFileDialog.FileName);
+            int newImported = 0;
+
+            await Task.Run(() =>
+            {
+                newImported = excelReader.ReadExcelFileData1(openFileDialog.FileName);
+            });
 
             stopwatch.Stop();
 
@@ -163,6 +168,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
             Stopwatch stopwatch = Stopwatch.StartNew();
             Helpers.ExcelReader excelReader = new Helpers.ExcelReader();
+
             int newImported = excelReader.ReadExcelFileData2(openFileDialog.FileName);
 
             stopwatch.Stop();

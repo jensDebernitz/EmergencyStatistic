@@ -1,5 +1,5 @@
 ﻿using LiteDB;
-using Wpf.Ui.Controls;
+using MaterialDesignThemes.Wpf;
 
 namespace ExcelTabellenAuswerung.Models
 {
@@ -8,6 +8,16 @@ namespace ExcelTabellenAuswerung.Models
         public string? IvenaAnmaledeCode { get; set; }
         public string? IvenaRmc { get; set; }
         public string? IvenaRmz { get; set; }
+        public string? BlutdruckDiastolisch { get; set; }
+        public string? BlutdruckSysstolisch { get; set; }
+        public string? Herz { get; set; }
+        public string? Zucker { get; set; }
+        public string? SpO2 { get; set; }
+        public string? Bewusstlage { get; set; }
+        public string? Gcs { get; set; }
+        public string? Name { get; set; }
+        public string? Manchester { get; set; }
+        public string? FreeSpace { get; set; }
     }
 
     public enum Scaling
@@ -54,12 +64,16 @@ namespace ExcelTabellenAuswerung.Models
         public string? IvenaAnmaledeCode { get; set; }
         public string? IvenaRmc { get; set; }
         public string? IvenaRmz { get; set; }
+        public string? Name { get; set; }
+        public string? Manchester { get; set; }
+        public string? FreeSpace { get; set; }
+        public string? Befund1SpO2 { get; set; }
 
         public EmegencyCaseReview? Review1 { get; set; }
         public EmegencyCaseReview? Review2 { get; set; }
 
         [BsonIgnore]
-        public SymbolRegular IsScaling
+        public PackIconKind IsScaling
         {
             get
             {
@@ -72,15 +86,15 @@ namespace ExcelTabellenAuswerung.Models
 
                 if (isScalingBewusstsein || isScalingAtmung || isScalingKreislauf || isScalingVerletzung || isScalingNeurologie || isScalingSchmerz)
                 {
-                    return SymbolGlyph.Parse("Warning28");
+                    return PackIconKind.Alert;
                 }
 
                 if(Review1 == null || string.IsNullOrEmpty( Review1.IvenaAnmaledeCode))
                 {
-                    return SymbolGlyph.Parse("ChatEmpty28");
+                    return PackIconKind.ChatQuestion;
                 }
 
-                return SymbolGlyph.Parse("CheckmarkCircle24");
+                return PackIconKind.CheckboxMarkedCircle;
             }
         }
 

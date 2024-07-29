@@ -1,15 +1,15 @@
-﻿using ExcelTabellenAuswerung.ViewModels.Pages;
-using Wpf.Ui.Controls;
+﻿using System.Windows.Controls;
+using ExcelTabellenAuswerung.ViewModels.Pages;
 
 namespace ExcelTabellenAuswerung.Views.Pages
 {
-    public partial class SettingsPage : INavigableView<SettingsViewModel>
+    public partial class SettingsPage : UserControl
     {
         public SettingsViewModel ViewModel { get; }
 
-        public SettingsPage(SettingsViewModel viewModel)
+        public SettingsPage()
         {
-            ViewModel = viewModel;
+            ViewModel = new SettingsViewModel();
             DataContext = this;
 
             InitializeComponent();

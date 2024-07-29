@@ -1,5 +1,4 @@
 ﻿using LiteDB;
-using LiteDB.Async;
 using System.Linq.Expressions;
 using ExcelTabellenAuswerung.Models;
 
