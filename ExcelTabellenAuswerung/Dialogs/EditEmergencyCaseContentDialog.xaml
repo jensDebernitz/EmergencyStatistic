@@ -697,10 +697,12 @@
                 </StackPanel>
                 <Button
                     Grid.Column="0"
+                    Margin="10"
                     Click="Button_Click"
                     Content="Dokumente anzeigen" />
                 <Button
                     Grid.Column="0"
+                    Margin="10"
                     Click="Button_Click_1"
                     Content="Schliessen" />
 
