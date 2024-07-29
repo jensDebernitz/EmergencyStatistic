@@ -15,6 +15,7 @@
     <PackageIcon>icon.jpg</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Version>1.0.13</Version>
+    <StartupObject>ExcelTabellenAuswerung.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="wpfui-icon.ico" />
