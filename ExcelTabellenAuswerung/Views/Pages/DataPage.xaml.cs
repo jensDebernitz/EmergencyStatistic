@@ -183,5 +183,10 @@ namespace ExcelTabellenAuswerung.Views.Pages
         {
             ViewModel.OnDoubleClick(ScrollableListView.SelectedItem);
         }
+
+        private void FixedListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ViewModel.OnDoubleClick(FixedListView.SelectedItem);
+        }
     }
 }

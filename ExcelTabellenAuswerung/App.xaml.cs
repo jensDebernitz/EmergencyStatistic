@@ -14,7 +14,7 @@ namespace ExcelTabellenAuswerung
     /// </summary>
     public partial class App : Application
     {
-      
+        internal BaseTheme InitialTheme { get; set; }
     }
 
 }

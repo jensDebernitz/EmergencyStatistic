@@ -2,714 +2,819 @@
     x:Class="ExcelTabellenAuswerung.Controls.EditDataContentDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:ExcelTabellenAuswerung.Helpers.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ExcelTabellenAuswerung.Controls"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:validators="clr-namespace:ExcelTabellenAuswerung.Helpers.Validators"
+    Width="1500"
+    Height="750"
     mc:Ignorable="d">
 
-
-    <Grid Width="1500" Height="1200">
-
-        <Grid>
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <DataGrid
-                        AutoGenerateColumns="False"
-                        CanUserAddRows="False"
-                        CanUserSortColumns="False"
-                        HeadersVisibility="All"
-                        ItemsSource="{Binding _emergencyData}">
-                        <DataGrid.Columns>
-                            <materialDesign:DataGridTextColumn
-                                Width="200"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="Was"
-                                IsReadOnly="True">
-                                <materialDesign:DataGridTextColumn.Binding>
-                                    <Binding Path="What" />
-                                </materialDesign:DataGridTextColumn.Binding>
-                            </materialDesign:DataGridTextColumn>
-                            <materialDesign:DataGridTextColumn
-                                Width="200"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="ClinicalRegistration"
-                                IsReadOnly="True">
-                                <materialDesign:DataGridTextColumn.Binding>
-                                    <Binding Path="ClinicalRegistration" />
-                                </materialDesign:DataGridTextColumn.Binding>
-                            </materialDesign:DataGridTextColumn>
-                            <materialDesign:DataGridTextColumn
-                                Width="200"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Header="ClinicalEvaluation">
-                                <materialDesign:DataGridTextColumn.Binding>
-                                    <Binding Path="ClinicalEvaluation" />
-                                </materialDesign:DataGridTextColumn.Binding>
-                            </materialDesign:DataGridTextColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-
-                    <StackPanel
-                        Margin="25,0,0,0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                        <StackPanel Margin="5">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 
 
-                            <Border
-                                Width="110"
-                                Height="25"
-                                BorderThickness="1"
-                                CornerRadius="5,5,5,5">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="Yellow" />
-                                </Border.Background>
-                                <Label
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="Bewusstsein" />
-                            </Border>
-                            <Border
-                                x:Name="borderBewusstsein1"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderBewusstsein_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightYellow" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="unauffällig" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderBewusstsein2"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderBewusstsein_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightYellow" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="somnolent" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderBewusstsein3"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderBewusstsein_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightYellow" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="schwere Störung" />
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="droht" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderBewusstsein4"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderBewusstsein_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightYellow" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="komatös mit" />
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="Schmerzreaktion" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderBewusstsein5"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderBewusstsein_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightYellow" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="komatös ohne" />
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="Schmerzreaktion" />
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Margin="5">
-                            <Border
-                                Width="110"
-                                Height="25"
-                                BorderThickness="1"
-                                CornerRadius="5,5,5,5">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="Aqua" />
-                                </Border.Background>
-                                <Label
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="Atmung" />
-                            </Border>
-                            <Border
-                                x:Name="borderAtmung1"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderAtmung_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightBlue" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="unauffällig" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderAtmung2"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderAtmung_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightBlue" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="leicht gestört" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderAtmung3"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderAtmung_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightBlue" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="schwere Störung" />
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="droht" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderAtmung4"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderAtmung_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightBlue" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="schwer gestört" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderAtmung5"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderAtmung_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightBlue" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="Atemstillstand" />
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Margin="5">
-                            <Border
-                                Width="110"
-                                Height="25"
-                                BorderThickness="1"
-                                CornerRadius="5,5,5,5">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="Crimson" />
-                                </Border.Background>
-                                <Label
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="Kreislauf" />
-                            </Border>
-                            <Border
-                                x:Name="borderKreislauf1"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderKreislauf_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightCoral" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="unauffällig" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderKreislauf2"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderKreislauf_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightCoral" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="leicht gestört" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderKreislauf3"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderKreislauf_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightCoral" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="schwere Störung" />
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="droht" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderKreislauf4"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderKreislauf_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightCoral" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="schwer gestört" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderKreislauf5"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderKreislauf_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightCoral" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="pulslos" />
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Margin="5">
-                            <Border
-                                Width="110"
-                                Height="25"
-                                BorderThickness="1"
-                                CornerRadius="5,5,5,5">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="Green" />
-                                </Border.Background>
-                                <Label
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="Verletzung" />
-                            </Border>
-                            <Border
-                                x:Name="borderVerletzung1"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderVerletzung_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightGreen" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="keine" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderVerletzung2"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderVerletzung_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightGreen" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="leicht" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderVerletzung3"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderVerletzung_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightGreen" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="schwere Verlet-" />
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="zung denkbar" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderVerletzung4"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderVerletzung_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightGreen" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="schwer" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderVerletzung5"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderVerletzung_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightGreen" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="Polytrauma" />
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Margin="5">
-                            <Border
-                                Width="110"
-                                Height="25"
-                                BorderThickness="1"
-                                CornerRadius="5,5,5,5">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="Gray" />
-                                </Border.Background>
-                                <Label
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="Neurologie" />
-                            </Border>
-                            <Border
-                                x:Name="borderNeurologie1"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderNeurologie_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightGray" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="unauffällig" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderNeurologie2"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderNeurologie_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightGray" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="vorbekannte" />
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="Störung" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderNeurologie3"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderNeurologie_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightGray" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="akute" />
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="Störung droht" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderNeurologie4"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderNeurologie_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightGray" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="akute Störung" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderNeurologie5"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderNeurologie_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="LightGray" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="progredient" />
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Margin="5">
-                            <Border
-                                Width="110"
-                                Height="25"
-                                BorderThickness="1"
-                                CornerRadius="5,5,5,5">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="BlueViolet" />
-                                </Border.Background>
-                                <Label
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="Schmerz" />
-                            </Border>
-                            <Border
-                                x:Name="borderSchmerz1"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderSchmerz_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="Violet" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="kein" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderSchmerz2"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderSchmerz_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="Violet" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="leicht" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderSchmerz3"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderSchmerz_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="Violet" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="mittelstark" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderSchmerz4"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderSchmerz_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="Violet" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="stark" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                x:Name="borderSchmerz5"
-                                Width="110"
-                                Height="50"
-                                BorderThickness="2"
-                                CornerRadius="5,5,5,5"
-                                MouseDown="borderSchmerz_MouseDown">
-                                <Border.Background>
-                                    <SolidColorBrush Opacity="1.0" Color="Violet" />
-                                </Border.Background>
-                                <StackPanel>
-                                    <Label
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Content="extrem" />
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
-                    </StackPanel>
+    <materialDesign:DialogHost DialogTheme="Inherit">
+        <Border Margin="0,0,0,0" Style="{DynamicResource PanelBorder}">
 
-                </StackPanel>
-                <Button
-                    Grid.Column="0"
-                    Margin="10"
-                    Click="Button_Click"
-                    Content="Dokumente anzeigen" />
-                <Button
-                    Grid.Column="0"
-                    Margin="10"
-                    Click="Button_Click_1"
-                    Content="Schliessen" />
+            <DockPanel>
+                <materialDesign:ColorZone
+                    Padding="16"
+                    DockPanel.Dock="Top"
+                    Mode="PrimaryMid">
+                    <DockPanel>
+
+                        <TextBlock
+                            x:Name="titleTextBlock"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            AutomationProperties.Name="eFormCenter"
+                            FontSize="22" />
+
+                    </DockPanel>
+
+                </materialDesign:ColorZone>
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="2*" />
+                    </Grid.RowDefinitions>
+
+                    <ScrollViewer
+                        x:Name="MainScrollViewer"
+                        Grid.Row="1"
+                        Margin="10"
+                        materialDesign:ScrollViewerAssist.IsAutoHideEnabled="True"
+                        HorizontalScrollBarVisibility="{Binding ViewModel.SelectedItem.HorizontalScrollBarVisibilityRequirement, FallbackValue=Disabled}"
+                        VerticalScrollBarVisibility="{Binding ViewModel.SelectedItem.VerticalScrollBarVisibilityRequirement, FallbackValue=Disabled}">
+                        <Grid Width="1500" Height="750">
+
+                            <Grid>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <DataGrid
+                                            x:Name="DataGridInformation"
+                                            AutoGenerateColumns="False"
+                                            CanUserAddRows="False"
+                                            CanUserSortColumns="False"
+                                            HeadersVisibility="All"
+                                            ItemsSource="{Binding _emergencyData}">
+
+                                            <DataGrid.Resources>
+                                                <Style x:Key="errorStyle" TargetType="{x:Type TextBox}">
+                                                    <Setter Property="Padding" Value="-2" />
+                                                    <Style.Triggers>
+                                                        <Trigger Property="Validation.HasError" Value="True">
+                                                            <Setter Property="Background" Value="Red" />
+                                                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGrid.Resources>
+
+                                            <DataGrid.Columns>
+                                                <materialDesign:DataGridTextColumn
+                                                    Width="200"
+                                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                                    Header="Was"
+                                                    IsReadOnly="True">
+                                                    <materialDesign:DataGridTextColumn.Binding>
+                                                        <Binding Path="What" />
+                                                    </materialDesign:DataGridTextColumn.Binding>
+                                                </materialDesign:DataGridTextColumn>
+                                                <materialDesign:DataGridTextColumn
+                                                    Width="200"
+                                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                                    Header="ClinicalRegistration"
+                                                    IsReadOnly="True">
+                                                    <materialDesign:DataGridTextColumn.Binding>
+                                                        <Binding Path="ClinicalRegistration" />
+                                                    </materialDesign:DataGridTextColumn.Binding>
+                                                </materialDesign:DataGridTextColumn>
+                                                <materialDesign:DataGridTextColumn
+                                                    Width="200"
+                                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                                    ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                                    Header="ClinicalEvaluation">
+                                                    <materialDesign:DataGridTextColumn.Binding>
+                                                        <Binding Path="ClinicalEvaluation" />
+                                                    </materialDesign:DataGridTextColumn.Binding>
+                                                </materialDesign:DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                            <DataGrid.RowValidationRules>
+                                                <validators:ClinicalValidationRule ValidationStep="UpdatedValue" />
+                                            </DataGrid.RowValidationRules>
 
 
-            </StackPanel>
-        </Grid>
+                                            <DataGrid.RowValidationErrorTemplate>
+                                                <ControlTemplate>
+                                                    <Grid Margin="0,-2,0,-2" ToolTip="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=(Validation.Errors)[0].ErrorContent}">
+                                                        <Ellipse
+                                                            Width="{TemplateBinding FontSize}"
+                                                            Height="{TemplateBinding FontSize}"
+                                                            Fill="Red"
+                                                            StrokeThickness="0" />
+                                                        <TextBlock
+                                                            HorizontalAlignment="Center"
+                                                            FontSize="{TemplateBinding FontSize}"
+                                                            FontWeight="Bold"
+                                                            Foreground="White"
+                                                            Text="!" />
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </DataGrid.RowValidationErrorTemplate>
 
-    </Grid>
+                                        </DataGrid>
+
+                                        <StackPanel
+                                            Margin="25,0,0,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+                                            <StackPanel Margin="5">
+
+
+                                                <Border
+                                                    Width="110"
+                                                    Height="25"
+                                                    BorderThickness="1"
+                                                    CornerRadius="5,5,5,5">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="Yellow" />
+                                                    </Border.Background>
+                                                    <Label
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Content="Bewusstsein" />
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderBewusstsein1"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderBewusstsein_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightYellow" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="unauffällig" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderBewusstsein2"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderBewusstsein_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightYellow" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="somnolent" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderBewusstsein3"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderBewusstsein_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightYellow" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="schwere Störung" />
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="droht" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderBewusstsein4"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderBewusstsein_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightYellow" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="komatös mit" />
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="Schmerzreaktion" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderBewusstsein5"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderBewusstsein_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightYellow" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="komatös ohne" />
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="Schmerzreaktion" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                            <StackPanel Margin="5">
+                                                <Border
+                                                    Width="110"
+                                                    Height="25"
+                                                    BorderThickness="1"
+                                                    CornerRadius="5,5,5,5">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="Aqua" />
+                                                    </Border.Background>
+                                                    <Label
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Content="Atmung" />
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderAtmung1"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderAtmung_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightBlue" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="unauffällig" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderAtmung2"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderAtmung_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightBlue" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="leicht gestört" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderAtmung3"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderAtmung_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightBlue" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="schwere Störung" />
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="droht" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderAtmung4"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderAtmung_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightBlue" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="schwer gestört" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderAtmung5"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderAtmung_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightBlue" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="Atemstillstand" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                            <StackPanel Margin="5">
+                                                <Border
+                                                    Width="110"
+                                                    Height="25"
+                                                    BorderThickness="1"
+                                                    CornerRadius="5,5,5,5">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="Crimson" />
+                                                    </Border.Background>
+                                                    <Label
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Content="Kreislauf" />
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderKreislauf1"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderKreislauf_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightCoral" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="unauffällig" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderKreislauf2"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderKreislauf_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightCoral" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="leicht gestört" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderKreislauf3"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderKreislauf_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightCoral" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="schwere Störung" />
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="droht" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderKreislauf4"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderKreislauf_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightCoral" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="schwer gestört" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderKreislauf5"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderKreislauf_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightCoral" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="pulslos" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                            <StackPanel Margin="5">
+                                                <Border
+                                                    Width="110"
+                                                    Height="25"
+                                                    BorderThickness="1"
+                                                    CornerRadius="5,5,5,5">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="Green" />
+                                                    </Border.Background>
+                                                    <Label
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Content="Verletzung" />
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderVerletzung1"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderVerletzung_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightGreen" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="keine" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderVerletzung2"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderVerletzung_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightGreen" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="leicht" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderVerletzung3"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderVerletzung_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightGreen" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="schwere Verlet-" />
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="zung denkbar" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderVerletzung4"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderVerletzung_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightGreen" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="schwer" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderVerletzung5"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderVerletzung_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightGreen" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="Polytrauma" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                            <StackPanel Margin="5">
+                                                <Border
+                                                    Width="110"
+                                                    Height="25"
+                                                    BorderThickness="1"
+                                                    CornerRadius="5,5,5,5">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="Gray" />
+                                                    </Border.Background>
+                                                    <Label
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Content="Neurologie" />
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderNeurologie1"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderNeurologie_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightGray" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="unauffällig" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderNeurologie2"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderNeurologie_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightGray" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="vorbekannte" />
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="Störung" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderNeurologie3"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderNeurologie_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightGray" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="akute" />
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="Störung droht" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderNeurologie4"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderNeurologie_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightGray" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="akute Störung" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderNeurologie5"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderNeurologie_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="LightGray" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="progredient" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                            <StackPanel Margin="5">
+                                                <Border
+                                                    Width="110"
+                                                    Height="25"
+                                                    BorderThickness="1"
+                                                    CornerRadius="5,5,5,5">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="BlueViolet" />
+                                                    </Border.Background>
+                                                    <Label
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Content="Schmerz" />
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderSchmerz1"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderSchmerz_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="Violet" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="kein" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderSchmerz2"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderSchmerz_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="Violet" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="leicht" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderSchmerz3"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderSchmerz_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="Violet" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="mittelstark" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderSchmerz4"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderSchmerz_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="Violet" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="stark" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border
+                                                    x:Name="borderSchmerz5"
+                                                    Width="110"
+                                                    Height="50"
+                                                    BorderThickness="2"
+                                                    CornerRadius="5,5,5,5"
+                                                    MouseDown="borderSchmerz_MouseDown">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Opacity="1.0" Color="Violet" />
+                                                    </Border.Background>
+                                                    <StackPanel>
+                                                        <Label
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Content="extrem" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                    </StackPanel>
+                                    <Button
+                                        Grid.Column="0"
+                                        Width="500"
+                                        Margin="10"
+                                        Click="Button_Click"
+                                        Content="Dokument anzeigen"
+                                        Style="{DynamicResource MaterialDesignPaperLightButton}" />
+                                    <Button
+                                        Grid.Column="0"
+                                        Width="500"
+                                        Margin="10"
+                                        Click="Button_Click_1"
+                                        Content="Speichern &amp; Schliessen"
+                                        Style="{DynamicResource MaterialDesignRaisedSecondaryButton}" />
+
+
+                                </StackPanel>
+                            </Grid>
+
+                        </Grid>
+
+
+                    </ScrollViewer>
+                    <materialDesign:Snackbar
+                        x:Name="MainSnackbar"
+                        Grid.Row="1"
+                        Width="400"
+                        MessageQueue="{materialDesign:MessageQueue}" />
+
+                </Grid>
+            </DockPanel>
+        </Border>
+    </materialDesign:DialogHost>
+
 
 </Window>

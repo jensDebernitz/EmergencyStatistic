@@ -9,6 +9,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ExcelTabellenAuswerung.Controls;
+using ExcelTabellenAuswerung.Views.Windows;
 
 namespace ExcelTabellenAuswerung.ViewModels.Pages
 {
@@ -16,6 +17,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
     {
         private bool _isInitialized = false;
         private readonly SynchronizationContext? context = SynchronizationContext.Current;
+        private List<string> _randomWaitungInformation = new();
 
         [ObservableProperty] private Visibility _openedFilePathVisibilityData1 = Visibility.Collapsed;
 
@@ -33,7 +35,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
         public DataViewModel()
         {
-         
+            _randomWaitungInformation = GeneratedWaitungInformations().ToList();
 
             Task.Run(LoadInformation);
         }
@@ -58,6 +60,37 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
                 }
             }
+        }
+
+        private IEnumerable<string> GeneratedWaitungInformations()
+        {
+            yield return new string("Kein Stress, schnapp dir 'nen Kaffee und lehn dich zurück – während die Excel-Tabelle sich in aller Ruhe importiert. Die Software hat das im Griff, also entspann dich und genieß die Pause! \ud83d\ude04");
+            yield return new string("Zeit für eine kleine Siesta! Lass die Software schuften, während die Excel-Tabelle gemütlich importiert wird. \ud83c\udf34");
+            yield return new string("Ab in den Chill-Modus! Die Tabelle braucht ein bisschen, um anzukommen. Die Software übernimmt das Ruder. \ud83d\ude80");
+            yield return new string("Lehne dich zurück, entspann dich und lass die Magie geschehen – die Excel-Tabelle kommt gleich, versprochen! \u2728");
+            yield return new string("Mach's dir bequem und zähl ein paar Schäfchen, während die Software die Tabelle importiert. \ud83d\udc11");
+            yield return new string("Zeit für eine kleine Tanzpause! Die Software importiert die Excel-Tabelle, während du eine Runde tanzen kannst. \ud83d\udc83\ud83d\udd7a");
+            yield return new string("Schnapp dir einen Snack und relax – die Software kümmert sich um den Tabellen-Import! \ud83c\udf7f");
+            yield return new string("Füße hoch und entspannen! Die Excel-Tabelle nimmt sich eine kleine Auszeit, bevor sie ankommt. \ud83d\udecb\ufe0f");
+            yield return new string("Mach’s dir gemütlich und lies ein Kapitel deines Lieblingsbuchs, während die Software die Excel-Tabelle importiert. \ud83d\udcd6");
+            yield return new string("Jetzt ist der perfekte Moment für eine Tasse Tee – die Excel-Tabelle braucht ein bisschen, um sich zurechtzufinden. \ud83c\udf75");
+            yield return new string("Atme tief durch und genieße die Ruhepause, während die Software den Excel-Import erledigt. \ud83c\udf2c\ufe0f");
+        }
+
+        private static readonly Random _random = new Random();
+
+        private string GetRandomWaitungInformation()
+        {
+            if (_randomWaitungInformation == null || _randomWaitungInformation.Count == 0)
+            {
+                throw new InvalidOperationException("The list is empty or null.");
+            }
+
+            // Index eines zufälligen Elements in der Liste generieren
+            int index = _random.Next(_randomWaitungInformation.Count);
+
+            // Zufälliges Element abrufen und zurückgeben
+            return _randomWaitungInformation[index];
         }
 
         private void LoadInformation()
@@ -113,6 +146,13 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
                 return;
             }
 
+            Task.Factory.StartNew(() => Thread.Sleep(2500)).ContinueWith(t =>
+            {
+                //note you can use the message queue from any thread, but just for the demo here we 
+                //need to get the message queue from the snackbar, so need to be on the dispatcher
+                MainWindow.Snackbar.MessageQueue?.Enqueue(GetRandomWaitungInformation());
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+
             Stopwatch stopwatch = Stopwatch.StartNew();
             Helpers.ExcelReader excelReader = new Helpers.ExcelReader();
             int newImported = 0;
@@ -166,6 +206,14 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
                 return;
             }
 
+            Task.Factory.StartNew(() => Thread.Sleep(2500)).ContinueWith(t =>
+            {
+                //note you can use the message queue from any thread, but just for the demo here we 
+                //need to get the message queue from the snackbar, so need to be on the dispatcher
+                MainWindow.Snackbar.MessageQueue?.Enqueue(GetRandomWaitungInformation());
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+
+
             Stopwatch stopwatch = Stopwatch.StartNew();
             Helpers.ExcelReader excelReader = new Helpers.ExcelReader();
 
@@ -210,6 +258,14 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
             {
                 return;
             }
+
+            Task.Factory.StartNew(() => Thread.Sleep(2500)).ContinueWith(t =>
+            {
+                //note you can use the message queue from any thread, but just for the demo here we 
+                //need to get the message queue from the snackbar, so need to be on the dispatcher
+                MainWindow.Snackbar.MessageQueue?.Enqueue(GetRandomWaitungInformation());
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+
 
             Helpers.ExcelReader excelReader = new Helpers.ExcelReader();
             excelReader.SavePdf(new DirectoryInfo(openFolderDialog.FolderName));

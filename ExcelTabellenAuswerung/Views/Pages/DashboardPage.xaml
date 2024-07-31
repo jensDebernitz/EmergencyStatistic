@@ -5,48 +5,51 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ExcelTabellenAuswerung.Views.Pages"
     xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pages="clr-namespace:ExcelTabellenAuswerung.ViewModels.Pages"
     d:DataContext="{d:DesignInstance pages:DashboardViewModel,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
 
     <Grid VerticalAlignment="Top">
-        <StackPanel>
-            <Expander Margin="10" Header="Scaling Statistik">
-                <StackPanel>
-                    <lvc:PolarChart
-                        Width="750"
-                        Height="750"
-                        AngleAxes="{Binding ViewModel.AngleAxes}"
-                        AnimationsSpeed="00:00:02.500"
-                        RadiusAxes="{Binding ViewModel.RadiusAxes}"
-                        Series="{Binding ViewModel.SeriesStroke}" />
-                </StackPanel>
-            </Expander>
-            <Expander Margin="10" Header="Einsatzstatistik">
-                <StackPanel>
-                    <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Text="Einsätze pro Monat" />
-                    <lvc:CartesianChart
-                        Height="250"
-                        Series="{Binding ViewModel.Series}"
-                        XAxes="{Binding ViewModel.XAxes}"
-                        YAxes="{Binding ViewModel.YAxes}"
-                        ZoomMode="Both" />
+        <materialDesign:Card>
+            <StackPanel>
 
-                    <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Text="Einsätze pro Jahr" />
-                    <lvc:CartesianChart
-                        Height="250"
-                        Series="{Binding ViewModel.SeriesYear}"
-                        XAxes="{Binding ViewModel.XAxesYear}"
-                        YAxes="{Binding ViewModel.YAxesYear}"
-                        ZoomMode="Both" />
+                <Expander Margin="10" Header="Scaling Statistik">
+                    <StackPanel>
+                        <lvc:PolarChart
+                            Width="750"
+                            Height="750"
+                            AngleAxes="{Binding ViewModel.AngleAxes}"
+                            AnimationsSpeed="00:00:02.500"
+                            RadiusAxes="{Binding ViewModel.RadiusAxes}"
+                            Series="{Binding ViewModel.SeriesStroke}" />
+                    </StackPanel>
+                </Expander>
+                <Expander Margin="10" Header="Einsatzstatistik">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Text="Einsätze pro Monat" />
+                        <lvc:CartesianChart
+                            Height="250"
+                            Series="{Binding ViewModel.Series}"
+                            XAxes="{Binding ViewModel.XAxes}"
+                            YAxes="{Binding ViewModel.YAxes}"
+                            ZoomMode="Both" />
 
-                </StackPanel>
-            </Expander>
-        </StackPanel>
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Text="Einsätze pro Jahr" />
+                        <lvc:CartesianChart
+                            Height="250"
+                            Series="{Binding ViewModel.SeriesYear}"
+                            XAxes="{Binding ViewModel.XAxesYear}"
+                            YAxes="{Binding ViewModel.YAxesYear}"
+                            ZoomMode="Both" />
+
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+        </materialDesign:Card>
     </Grid>
 </UserControl>

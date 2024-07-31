@@ -13,8 +13,8 @@ namespace ExcelTabellenAuswerung.Models
     {
         private readonly Type _contentType;
         private object _content;
-        private ScrollBarVisibility _horizontalScrollBarVisibilityRequirement;
-        private ScrollBarVisibility _verticalScrollBarVisibilityRequirement = ScrollBarVisibility.Auto;
+        private ScrollBarVisibility _horizontalScrollBarVisibilityRequirement = ScrollBarVisibility.Disabled;
+        private ScrollBarVisibility _verticalScrollBarVisibilityRequirement = ScrollBarVisibility.Disabled;
         private Thickness _marginRequirement = new Thickness(16);
         private string _shownName;
         private string _name;

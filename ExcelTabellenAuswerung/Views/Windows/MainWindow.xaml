@@ -8,14 +8,22 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="MainWindow"
-    Width="1100"
-    Height="650"
     d:DataContext="{d:DesignInstance local:MainWindow,
                                      IsDesignTimeCreatable=True}"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    Style="{StaticResource MaterialDesignWindow}"
     WindowState="Maximized"
     mc:Ignorable="d">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
 
     <materialDesign:DialogHost DialogTheme="Inherit" Identifier="RootDialog">
         <Border Margin="0,0,0,0" Style="{DynamicResource PanelBorder}">
@@ -140,23 +148,28 @@
                     <Grid>
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="2*" />
                         </Grid.RowDefinitions>
 
                         <ScrollViewer
                             x:Name="MainScrollViewer"
+                            Grid.Row="1"
                             materialDesign:ScrollViewerAssist.IsAutoHideEnabled="True"
                             HorizontalScrollBarVisibility="{Binding ViewModel.SelectedItem.HorizontalScrollBarVisibilityRequirement, FallbackValue=Disabled}"
                             VerticalScrollBarVisibility="{Binding ViewModel.SelectedItem.VerticalScrollBarVisibilityRequirement, FallbackValue=Disabled}">
                             <ContentControl
-                                Grid.Row="1"
                                 Margin="{Binding MarginRequirement, FallbackValue=16}"
                                 Content="{Binding Content, UpdateSourceTrigger=PropertyChanged, FallbackValue={x:Null}}"
                                 DataContext="{Binding ViewModel.SelectedItem}"
                                 DataContextChanged="OnSelectedItemChanged" />
                         </ScrollViewer>
-
+                        <materialDesign:Snackbar
+                            x:Name="MainSnackbar"
+                            Grid.Row="1"
+                            Width="400"
+                            MessageQueue="{materialDesign:MessageQueue}" />
 
                     </Grid>
                 </DockPanel>

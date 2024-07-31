@@ -14,7 +14,9 @@ namespace ExcelTabellenAuswerung.Views.Windows
 {
     public partial class MainWindow : Window, IDisposable
     {
+        public static Snackbar Snackbar = new();
         public MainWindowViewModel ViewModel { get; }
+        App app = (App)Application.Current;
         private bool isTimerRunning;
 
         public MainWindow()
@@ -23,8 +25,24 @@ namespace ExcelTabellenAuswerung.Views.Windows
             InitializeComponent();
             DataContext = this;
 
-            isTimerRunning = false;
+            var paletteHelper = new PaletteHelper();
+            var theme = paletteHelper.GetTheme();
 
+            DataBase.SettingsDataBase settingsDataBase = new DataBase.SettingsDataBase();
+            app.InitialTheme = settingsDataBase.LoadTheme();
+
+            switch (app.InitialTheme)
+            {
+                case BaseTheme.Dark:
+                    ModifyTheme(true);
+                    break;
+                case BaseTheme.Light:
+                    ModifyTheme(false);
+                    break;
+            }
+
+            isTimerRunning = false;
+            Snackbar = MainSnackbar;
             StartTimer();
         }
 
@@ -40,11 +58,7 @@ namespace ExcelTabellenAuswerung.Views.Windows
 
                 if (update != null)
                 {
-                    //_snackbarService.Show(
-                    //    "Neues Update Verfügbar",
-                    //    $"Es steht ein neues Update '{update.TargetFullRelease.Version}' zuverfügung. Um dies zu installieren gehen sie bitte in ihre Settings",
-                    //    _snackbarAppearance,
-                    //    new SymbolIcon(SymbolRegular.Fluent24),
+                    Snackbar.MessageQueue?.Enqueue($"Es steht ein neues Update '{update.TargetFullRelease.Version}' zuverfügung. Um dies zu installieren gehen sie bitte in ihre Settings");
                     TimeSpan.FromSeconds(5);
                 }
 
@@ -69,6 +83,15 @@ namespace ExcelTabellenAuswerung.Views.Windows
                 }
                 dependencyObject = VisualTreeHelper.GetParent(dependencyObject);
             }
+        }
+
+        private static void ModifyTheme(bool isDarkTheme)
+        {
+            var paletteHelper = new PaletteHelper();
+            var theme = paletteHelper.GetTheme();
+
+            theme.SetBaseTheme(isDarkTheme ? BaseTheme.Dark : BaseTheme.Light);
+            paletteHelper.SetTheme(theme);
         }
 
         private void MenuToggleButton_OnClick(object sender, RoutedEventArgs e)

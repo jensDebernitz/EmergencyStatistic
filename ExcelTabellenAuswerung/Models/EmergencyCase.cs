@@ -89,7 +89,7 @@ namespace ExcelTabellenAuswerung.Models
                     return PackIconKind.Alert;
                 }
 
-                if(Review1 == null || string.IsNullOrEmpty( Review1.IvenaAnmaledeCode))
+                if(Review1 == null || string.IsNullOrEmpty( Review1.IvenaRmc))
                 {
                     return PackIconKind.ChatQuestion;
                 }

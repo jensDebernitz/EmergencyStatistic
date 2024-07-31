@@ -19,7 +19,7 @@ public partial class MainWindowViewModel : ObservableObject
     private int _selectedIndex;
     private ObservableCollection<Items> _items = new ();
     private Items _protocol = null;
-    private string _title = "";
+    private string _title = $"Einsatz-Dokumentation & Statistik";
     private bool _toggleButton = false;
     private Items _messagePolling;
 
@@ -70,10 +70,8 @@ public partial class MainWindowViewModel : ObservableObject
         set
         {
             SetProperty(ref _selectedItem, value);
-            if (_selectedItem != null)
-            {
-                Title = _selectedItem.Name;
-            }
+            ToggleButton = false;
+
         }
     }
 
@@ -118,7 +116,6 @@ public partial class MainWindowViewModel : ObservableObject
         _messagePolling = new Items("Einstellungen", "Einstellungen", typeof(SettingsPage));
         SelectedIndex = -1;
         SelectedItem = _messagePolling;
-        ToggleButton = false;
     }
 
 }
