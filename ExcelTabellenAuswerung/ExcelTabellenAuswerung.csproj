@@ -8,16 +8,15 @@
     <UseWPF>true</UseWPF>
        <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Authors>Jens Debernitz</Authors>
-    <Description>Einsatz-Dokumentation &amp; Statistik</Description>
+    <Description>kleines EXCEL Auswerte Tool</Description>
     <PackageProjectUrl>https://github.com/jensDebernitz</PackageProjectUrl>
     <PackageTags>sample, library</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>ambulance.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>1.0.21</Version>
+    <Version>1.0.22</Version>
     <StartupObject>ExcelTabellenAuswerung.Program</StartupObject>
     <ApplicationIcon>wpfui-icon.ico</ApplicationIcon>
-    <AssemblyName>Einsatz-Dokumentation &amp; Statistik</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,13 +29,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="$(OutputPath)\Einsatz-Dokumentation &amp; Statistik.exe" />    
+    <Content Include="$(OutputPath)\ExcelTabellenAuswerung.exe" />    
     <Content Include="$(OutputPath)\ClosedXML.dll" />   
     <Content Include="$(OutputPath)\CommunityToolkit.Mvvm.dll" />   
     <Content Include="$(OutputPath)\DocumentFormat.OpenXml.dll" />
     <Content Include="$(OutputPath)\DocumentFormat.OpenXml.Framework.dll" />    
     <Content Include="$(OutputPath)\ExcelNumberFormat.dll" />   
-    <Content Include="$(OutputPath)\Einsatz-Dokumentation &amp; Statistik.dll" />   
+    <Content Include="$(OutputPath)\ExcelTabellenAuswerung.dll" />   
     <Content Include="$(OutputPath)\HarfBuzzSharp.dll" />   
     <Content Include="$(OutputPath)\icudt.dll" />   
     <Content Include="$(OutputPath)\Irony.dll" />       
