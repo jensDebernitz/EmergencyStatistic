@@ -37,7 +37,6 @@
                             x:Name="titleTextBlock"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            AutomationProperties.Name="eFormCenter"
                             FontSize="22" />
 
                     </DockPanel>

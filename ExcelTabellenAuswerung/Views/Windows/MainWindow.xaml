@@ -138,7 +138,6 @@
                             <TextBlock
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                AutomationProperties.Name="eFormCenter"
                                 FontSize="22"
                                 Text="{Binding ViewModel.Title}" />
 
