@@ -47,28 +47,31 @@ namespace ExcelTabellenAuswerung.Helpers
                         {
                             string grundStichwort = worksheet.Cell("A" + counter).GetString();
                             string diagnose = worksheet.Cell("B" + counter).GetString();
-                            string icdCode = worksheet.Cell("C" + counter).GetString();
-                            string protokollNummer = worksheet.Cell("D" + counter).GetString();
-                            string einsatzDatum = worksheet.Cell("E" + counter).GetString();
-                            string einsatzOrtStrasseNummer = worksheet.Cell("F" + counter).GetString();
-                            string funkName = worksheet.Cell("G" + counter).GetString();
-                            string transportZiel = worksheet.Cell("H" + counter).GetString();
-                            string zeitAnkunftPatient =  worksheet.Cell("I" + counter).GetString();
-                            string zeitTransportBeginn =  worksheet.Cell("J" + counter).GetString();
-                            string bef1Zucker = worksheet.Cell("K" + counter).GetString();
-                            string bef1HerzFrequenz = worksheet.Cell("L" + counter).GetString();
-                            string bef1BlutdruckSys = worksheet.Cell("M" + counter).GetString();
-                            string bef1BlutdruckDia = worksheet.Cell("N" + counter).GetString();
-                            string bef1Bewusstlage = worksheet.Cell("O" + counter).GetString();
-                            string befund1Gcs = worksheet.Cell("P" + counter).GetString();
-                            string diagnoseGruppe = worksheet.Cell("Q" + counter).GetString();
-                            string diagniseCode = worksheet.Cell("R" + counter).GetString();
-                            string nacaScore = worksheet.Cell("S" + counter).GetString();
+                            string name = worksheet.Cell("C" + counter).GetString();
+                            string icdCode = worksheet.Cell("D" + counter).GetString();
+                            string protokollNummer = worksheet.Cell("E" + counter).GetString();
+                            string einsatzDatum = worksheet.Cell("F" + counter).GetString();
+                            string einsatzOrtStrasseNummer = worksheet.Cell("G" + counter).GetString();
+                            string funkName = worksheet.Cell("H" + counter).GetString();
+                            string transportZiel = worksheet.Cell("I" + counter).GetString();
+                            string zeitAnkunftPatient =  worksheet.Cell("J" + counter).GetString();
+                            string zeitTransportBeginn =  worksheet.Cell("K" + counter).GetString();
+                            string bef1SpO2 = worksheet.Cell("L" + counter).GetString();
+                            string bef1Zucker = worksheet.Cell("M" + counter).GetString();
+                            string bef1HerzFrequenz = worksheet.Cell("N" + counter).GetString();
+                            string bef1BlutdruckSys = worksheet.Cell("O" + counter).GetString();
+                            string bef1BlutdruckDia = worksheet.Cell("P" + counter).GetString();
+                            string bef1Bewusstlage = worksheet.Cell("Q" + counter).GetString();
+                            string befund1Gcs = worksheet.Cell("R" + counter).GetString();
+                            string diagnoseGruppe = worksheet.Cell("S" + counter).GetString();
+                            string diagniseCode = worksheet.Cell("T" + counter).GetString();
+                            string nacaScore = worksheet.Cell("U" + counter).GetString();
 
-                            Models.EmergencyCase emergencyCase = new Models.EmergencyCase
+                            EmergencyCase emergencyCase = new EmergencyCase
                             {
                                 GrundStichwort = grundStichwort,
                                 Diagnosis = diagnose,
+                                Name = name,
                                 IcdCode = icdCode,
                                 InternalId = protokollNummer,
                                 EinsatzDatum = einsatzDatum,
@@ -77,6 +80,7 @@ namespace ExcelTabellenAuswerung.Helpers
                                 TransportZiel = transportZiel,
                                 ZeitAnkunftPatient = zeitAnkunftPatient,
                                 ZeitTransportBeginn = zeitTransportBeginn,
+                                Befund1SpO2 = bef1SpO2,
                                 Befund1Zucker = bef1Zucker,
                                 Befund1HerzFrequenz = bef1HerzFrequenz,
                                 Befund1Blutdrucksystolisch = bef1BlutdruckSys,

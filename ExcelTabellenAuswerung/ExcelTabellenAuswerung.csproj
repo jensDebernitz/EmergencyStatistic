@@ -14,11 +14,18 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>ambulance.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>1.0.17</Version>
+    <Version>1.0.18</Version>
     <StartupObject>ExcelTabellenAuswerung.Program</StartupObject>
+    <ApplicationIcon>wpfui-icon.ico</ApplicationIcon>
   </PropertyGroup>
+
   <ItemGroup>
-    <Resource Include="wpfui-icon.ico" />
+    <None Remove="Resources\ambulance.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="wpfui-icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +64,7 @@
     <Content Include="$(OutputPath)\SkiaSharp.Views.WPF.dll" /> 
     <Content Include="$(OutputPath)\Velopack.dll" /> 
     <Content Include="$(OutputPath)\XLParser.dll" /> 
+    <Content Include="wpfui-icon.ico" /> 
     <None Include="ambulance.png" Pack="true" PackagePath="" />
     <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
@@ -81,6 +89,12 @@
   <ItemGroup>
     <Folder Include="Dialogs\" />
     <Folder Include="Views\Windows\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\ambulance.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

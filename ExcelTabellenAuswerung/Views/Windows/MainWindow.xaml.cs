@@ -1,12 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Media;
-using ExcelTabellenAuswerung.DataBase;
 using ExcelTabellenAuswerung.ViewModels.Windows;
-using System.Windows.Threading;
-
 using Velopack;
 using Velopack.Sources;
-using Microsoft.VisualBasic;
 using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
 

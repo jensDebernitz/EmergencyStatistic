@@ -20,7 +20,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0">
+        <StackPanel Grid.Row="0" Grid.Column="1">
             <StackPanel Margin="10" Orientation="Horizontal">
                 <Button
                     Grid.Column="0"
@@ -32,8 +32,11 @@
                     VerticalAlignment="Center"
                     Orientation="Horizontal"
                     Visibility="{Binding ViewModel.OpenedFilePathVisibilityData1}">
-                    <TextBlock Text="Neu Importierte:" />
-                    <TextBlock Margin="4,0,0,0" Text="{Binding ViewModel.OpenedFilePathData1}" />
+                    <TextBlock Width="250" Text="Neu Importierte:" />
+                    <TextBlock
+                        Width="250"
+                        Margin="4,0,0,0"
+                        Text="{Binding ViewModel.OpenedFilePathData1}" />
                 </StackPanel>
             </StackPanel>
             <StackPanel Margin="10" Orientation="Horizontal">
@@ -47,8 +50,11 @@
                     VerticalAlignment="Center"
                     Orientation="Horizontal"
                     Visibility="{Binding ViewModel.OpenedFilePathVisibilityData2}">
-                    <TextBlock Text="Neu Importierte:" />
-                    <TextBlock Margin="4,0,0,0" Text="{Binding ViewModel.OpenedFilePathData2}" />
+                    <TextBlock Width="250" Text="Neu Importierte:" />
+                    <TextBlock
+                        Width="250"
+                        Margin="4,0,0,0"
+                        Text="{Binding ViewModel.OpenedFilePathData2}" />
                 </StackPanel>
             </StackPanel>
             <StackPanel Margin="10" Orientation="Horizontal">
@@ -66,7 +72,8 @@
             Grid.Column="0"
             BorderThickness="0"
             ItemsSource="{Binding ViewModel.EmergencyCaseList}"
-            ScrollViewer.ScrollChanged="OnFixedScrollChanged" MouseDoubleClick="FixedListView_MouseDoubleClick">
+            MouseDoubleClick="FixedListView_MouseDoubleClick"
+            ScrollViewer.ScrollChanged="OnFixedScrollChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn
@@ -105,6 +112,10 @@
                         Header="Diagnose" />
                     <GridViewColumn
                         Width="120"
+                        DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                        Header="Name" />
+                    <GridViewColumn
+                        Width="120"
                         DisplayMemberBinding="{Binding IcdCode, UpdateSourceTrigger=PropertyChanged}"
                         Header="ICD Code" />
                     <GridViewColumn
@@ -135,6 +146,10 @@
                         Width="120"
                         DisplayMemberBinding="{Binding Befund1Zucker, UpdateSourceTrigger=PropertyChanged}"
                         Header="Zucker" />
+                    <GridViewColumn
+                        Width="120"
+                        DisplayMemberBinding="{Binding Befund1SpO2, UpdateSourceTrigger=PropertyChanged}"
+                        Header="SpO2" />
                     <GridViewColumn
                         Width="120"
                         DisplayMemberBinding="{Binding Befund1HerzFrequenz, UpdateSourceTrigger=PropertyChanged}"
@@ -191,10 +206,6 @@
                         Width="120"
                         DisplayMemberBinding="{Binding IvenaRmz, UpdateSourceTrigger=PropertyChanged}"
                         Header="IVENA RMZ" />
-                    <GridViewColumn
-                        Width="120"
-                        DisplayMemberBinding="{Binding Review1.Name, UpdateSourceTrigger=PropertyChanged}"
-                        Header="Name" />
                     <GridViewColumn
                         Width="120"
                         DisplayMemberBinding="{Binding Review1.Manchester, UpdateSourceTrigger=PropertyChanged}"
