@@ -12,9 +12,9 @@
     <PackageProjectUrl>https://github.com/jensDebernitz</PackageProjectUrl>
     <PackageTags>sample, library</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>icon.jpg</PackageIcon>
+    <PackageIcon>ambulance.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>1.0.16</Version>
+    <Version>1.0.17</Version>
     <StartupObject>ExcelTabellenAuswerung.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
@@ -57,7 +57,7 @@
     <Content Include="$(OutputPath)\SkiaSharp.Views.WPF.dll" /> 
     <Content Include="$(OutputPath)\Velopack.dll" /> 
     <Content Include="$(OutputPath)\XLParser.dll" /> 
-    <None Include="icon.jpg" Pack="true" PackagePath="" />
+    <None Include="ambulance.png" Pack="true" PackagePath="" />
     <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
@@ -81,6 +81,13 @@
   <ItemGroup>
     <Folder Include="Dialogs\" />
     <Folder Include="Views\Windows\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ambulance.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
