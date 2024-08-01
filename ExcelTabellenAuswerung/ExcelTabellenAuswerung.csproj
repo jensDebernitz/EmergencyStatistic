@@ -14,11 +14,11 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.jpg</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>1.0.15</Version>
+    <Version>1.0.16</Version>
     <StartupObject>ExcelTabellenAuswerung.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="wpfui-icon.ico" />
+    <Resource Include="wpfui-icon.ico" />
   </ItemGroup>
 
   <ItemGroup>

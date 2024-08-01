@@ -10,6 +10,7 @@
     Title="MainWindow"
     d:DataContext="{d:DesignInstance local:MainWindow,
                                      IsDesignTimeCreatable=True}"
+    Icon="../../wpfui-icon.ico"
     Style="{StaticResource MaterialDesignWindow}"
     WindowState="Maximized"
     mc:Ignorable="d">
