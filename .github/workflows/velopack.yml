@@ -27,6 +27,6 @@ jobs:
           echo "2"
           vpk download github --repoUrl https://github.com/jensDebernitz/EmergencyStatistic
           echo "3"
-          vpk pack -u ExcelTabellenAuswerung -v ${{ steps.get-version.outputs.version }} -p publish  --mainExe 'Einsatz-Dokumentation & Statistik.exe'
+          vpk pack -u ExcelTabellenAuswerung -v ${{ steps.get-version.outputs.version }} -p publish
           echo "4"
           vpk upload github --repoUrl https://github.com/jensDebernitz/EmergencyStatistic --token ${{ secrets.GITHUB_TOKEN }} --publish --releaseName "EmergencyStatistic ${{ steps.get-version.outputs.version }}" --tag v${{ steps.get-version.outputs.version }}
