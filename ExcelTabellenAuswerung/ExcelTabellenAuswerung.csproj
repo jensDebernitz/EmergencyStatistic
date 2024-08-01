@@ -14,7 +14,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>ambulance.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>1.0.19</Version>
+    <Version>1.0.20</Version>
     <StartupObject>ExcelTabellenAuswerung.Program</StartupObject>
     <ApplicationIcon>wpfui-icon.ico</ApplicationIcon>
   </PropertyGroup>
@@ -64,7 +64,7 @@
     <Content Include="$(OutputPath)\SkiaSharp.Views.WPF.dll" /> 
     <Content Include="$(OutputPath)\Velopack.dll" /> 
     <Content Include="$(OutputPath)\XLParser.dll" /> 
-    <Content Include="wpfui-icon.ico" /> 
+    <Content Include="$(OutputPath)\wpfui-icon.ico" /> 
     <None Include="ambulance.png" Pack="true" PackagePath="" />
     <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
