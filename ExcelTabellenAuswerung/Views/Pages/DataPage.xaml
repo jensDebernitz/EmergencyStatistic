@@ -25,7 +25,7 @@
                 <Button
                     Grid.Column="0"
                     Command="{Binding ViewModel.OpenFileData1Command}"
-                    Content="Einlesen Data 1 Tabelle" />
+                    Content="Einlesen MED-Data Tabelle" />
                 <StackPanel
                     Grid.Column="1"
                     Margin="16,0,0,0"
@@ -43,7 +43,7 @@
                 <Button
                     Grid.Column="0"
                     Command="{Binding ViewModel.OpenFileData2Command}"
-                    Content="Einlesen Data 2 Tabelle" />
+                    Content="Einlesen RD-Data Tabelle" />
                 <StackPanel
                     Grid.Column="1"
                     Margin="16,0,0,0"
@@ -209,11 +209,11 @@
                     <GridViewColumn
                         Width="120"
                         DisplayMemberBinding="{Binding Review1.Manchester, UpdateSourceTrigger=PropertyChanged}"
-                        Header="Manchester" />
+                        Header="Manchester-Triage-System" />
                     <GridViewColumn
                         Width="130"
                         DisplayMemberBinding="{Binding Review1.FreeSpace, UpdateSourceTrigger=PropertyChanged}"
-                        Header="FreeSpace" />
+                        Header="KH-Aufnahmenummer" />
                 </GridView>
             </ListView.View>
         </ListView>

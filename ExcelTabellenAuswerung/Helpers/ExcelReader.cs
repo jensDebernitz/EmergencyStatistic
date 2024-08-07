@@ -40,10 +40,10 @@ namespace ExcelTabellenAuswerung.Helpers
                     while (string.IsNullOrWhiteSpace(cell.GetString()) == false)
                     {
                         Stopwatch stopwatch = Stopwatch.StartNew();
-                        cell = worksheet.Cell("A" + counter);
+                        cell = worksheet.Cell("E" + counter);
                         string cellString = cell.GetString();
 
-                        if (cellString != "GRUNDSTICHWORT")
+                        if (cellString != "Protokollnummer")
                         {
                             string grundStichwort = worksheet.Cell("A" + counter).GetString();
                             string diagnose = worksheet.Cell("B" + counter).GetString();
@@ -100,10 +100,14 @@ namespace ExcelTabellenAuswerung.Helpers
                                 emergencyCaseDataBase.Save(emergencyCase);
                                 newReadRows++;
                             }
+                            else
+                            {
+                                Log.Information($"Die Internal Id wurde schon vergeben {emergencyCase.InternalId}");
+                            }
                         }
                         stopwatch.Stop();
                         // Loggen der Dauer der Operation
-                        Log.Information("Die Zeile einlesen dauerte {Duration} Millisekunden.", stopwatch.ElapsedMilliseconds);
+                       // Log.Information("Die Zeile einlesen dauerte {Duration} Millisekunden.", stopwatch.ElapsedMilliseconds);
 
                         counter++;
                     }
@@ -143,10 +147,10 @@ namespace ExcelTabellenAuswerung.Helpers
                     while (string.IsNullOrWhiteSpace(cell.GetString()) == false)
                     {
                         Stopwatch stopwatch = Stopwatch.StartNew();
-                        cell = worksheet.Cell("A" + counter);
+                        cell = worksheet.Cell("B" + counter);
                         string cellString = cell.GetString();
 
-                        if (cellString != "EINSATZDATUM")
+                        if (cellString != "Protokollnummer")
                         {
                             string protokollNummer = worksheet.Cell("B" + counter).GetString();
                             string ivenaAnmeldeCode = worksheet.Cell("I" + counter).GetString();

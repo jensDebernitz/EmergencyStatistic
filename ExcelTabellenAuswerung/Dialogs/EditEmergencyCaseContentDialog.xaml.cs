@@ -1,26 +1,16 @@
-﻿using System.Diagnostics;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Text.RegularExpressions;
-using ExcelTabellenAuswerung.Models;
 using LiteDB;
-using System.IO;
-using Patagames.Pdf.Net;
 using static System.Environment;
 using MessageBox = System.Windows.MessageBox;
 using System.Windows;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using ClosedXML;
 using CommunityToolkit.Mvvm.ComponentModel;
-using DocumentFormat.OpenXml.Drawing.Charts;
 using System.Text;
-using System.Windows.Media.Converters;
-using ExcelTabellenAuswerung.Helpers.Validators;
-using Style = System.Windows.Style;
 
 namespace ExcelTabellenAuswerung.Controls;
 
@@ -61,6 +51,7 @@ public partial class EditDataContentDialog : Window
     private Models.EmergencyCase _emergencyCase;
     private EditEmergencyData rmcData;
     public ObservableCollection<EditEmergencyData> _emergencyData { get; } = new();
+    public ObservableCollection<string> _manchester { get; } = new();
 
     public EditDataContentDialog(int id)
     {
@@ -68,6 +59,12 @@ public partial class EditDataContentDialog : Window
         DataContext = this;
         _emergencyCase = emergencyCaseDataBase.Get(id);
         _id = id;
+
+        _manchester.Add("1 - SOFORT - rot - 0 Minuten");
+        _manchester.Add("2 - SEHR DRINGEND - orange - 10 Minuten");
+        _manchester.Add("3 - DRINGEND - gelb - 30 Minuten");
+        _manchester.Add("4 - NORMAL - grün - 90 Minuten");
+        _manchester.Add("5 - NICHT DRINGEND - blau - 120 Minuten");
 
         InitializeComponent();
 
@@ -161,14 +158,14 @@ public partial class EditDataContentDialog : Window
 
         _emergencyData.Add(new EditEmergencyData()
         {
-            What = "Manchester",
+            What = "Manchester-Triage-System",
             ClinicalRegistration = _emergencyCase.Manchester,
             ClinicalEvaluation = _emergencyCase.Review1 != null ? _emergencyCase.Review1.Manchester : ""
         });
 
         _emergencyData.Add(new EditEmergencyData()
         {
-            What = "Free Space",
+            What = "KH-Aufnahmenummer",
             ClinicalRegistration = _emergencyCase.FreeSpace,
             ClinicalEvaluation = _emergencyCase.Review1 != null ? _emergencyCase.Review1.FreeSpace : ""
         });
@@ -236,10 +233,10 @@ public partial class EditDataContentDialog : Window
                 case "Name":
                     _emergencyCase.Review1.Name = editEmergencyData.ClinicalEvaluation;
                     break;
-                case "Manchester":
+                case "Manchester-Triage-System":
                     _emergencyCase.Review1.Manchester = editEmergencyData.ClinicalEvaluation;
                     break;
-                case "Free Space":
+                case "KH-Aufnahmenummer":
                     _emergencyCase.Review1.FreeSpace = editEmergencyData.ClinicalEvaluation;
                     break;
             }
@@ -756,6 +753,14 @@ public partial class EditDataContentDialog : Window
         var stringBuilder = new StringBuilder(text);
         stringBuilder[index] = c;
         return stringBuilder.ToString();
+    }
+
+    private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        string? selectedText = e.AddedItems[0] as string;
+        EditEmergencyData tempData = _emergencyData.First(x => x.What == "Manchester-Triage-System");
+
+        if (selectedText != null) tempData.ClinicalEvaluation = selectedText;
     }
 }
 

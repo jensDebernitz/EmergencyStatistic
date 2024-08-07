@@ -159,7 +159,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
             await Task.Run(() =>
             {
-                newImported = excelReader.ReadExcelFileData1(openFileDialog.FileName);
+           newImported = excelReader.ReadExcelFileData1(openFileDialog.FileName);
             });
 
             stopwatch.Stop();
@@ -177,7 +177,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
             List<Models.EmergencyCase> emergencyCases = emergencyCaseDataBase.LoadData();
             EmergencyCaseList = new ObservableCollection<EmergencyCase?>(emergencyCases);
             // Loggen der Dauer der Operation
-            Log.Information("Die LoadData dauerte {Duration} Millisekunden.", stopwatch.ElapsedMilliseconds);
+            Log.Information("Die LoadData dauerte {Duration} Millisekunden. Anzahl in Datenbank {1}", stopwatch.ElapsedMilliseconds, emergencyCases.Count);
 
 
             OpenedFilePathData1 = newImported.ToString();
@@ -234,9 +234,8 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
             List<Models.EmergencyCase> emergencyCases = emergencyCaseDataBase.LoadData();
             EmergencyCaseList = new ObservableCollection<EmergencyCase?>(emergencyCases);
             // Loggen der Dauer der Operation
-            Log.Information("Die LoadData dauerte {Duration} Millisekunden.", stopwatch.ElapsedMilliseconds);
-
-
+            Log.Information("Die LoadData dauerte {Duration} Millisekunden. Anzahl in dDatenbank {1}", stopwatch.ElapsedMilliseconds, emergencyCases.Count);
+            
             OpenedFilePathData2 = newImported.ToString();
             OpenedFilePathVisibilityData2 = Visibility.Visible;
         }
