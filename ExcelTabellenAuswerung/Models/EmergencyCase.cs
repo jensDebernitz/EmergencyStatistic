@@ -31,6 +31,7 @@ namespace ExcelTabellenAuswerung.Models
     public class EmergencyCase
     {
         public int Id { get; set; }
+        //OK 25.10.2024
         public string InternalId { get; set; } = "-.-";
 
         public Scaling ScalingBewusstsein { get; set; } = Scaling.noMeasure;
@@ -40,33 +41,57 @@ namespace ExcelTabellenAuswerung.Models
         public Scaling ScalingNeurologie { get; set; } = Scaling.noMeasure;
         public Scaling ScalingSchmerz { get; set; } = Scaling.noMeasure;
 
+        //OK 25.10.2024
         public string? GrundStichwort { get; set; }
+        //OK 25.10.2024
         public string? Diagnosis { get; set; }
+        //OK 25.10.2024
         public string? IcdCode { get; set; }
+        //OK 25.10.2024
         public string? EinsatzDatum { get; set; }
-        public string? EinsatzOrtStrasseNummer { get; set; }
+        //OK 25.10.2024
         public string? Funkname { get; set; }
+        //OK 25.10.2024
         public string? TransportZiel { get; set; }
+        //OK 25.10.2024
         public string? ZeitAnkunftPatient { get; set; }
+        //OK 25.10.2024
         public string? ZeitTransportBeginn { get; set; }
+        //OK 25.10.2024
         public string? Befund1Zucker { get; set; }
+        //OK 25.10.2024
         public string? Befund1HerzFrequenz { get; set; }
+        //OK 25.10.2024
         public string? Befund1Blutdrucksystolisch { get; set; }
+        //OK 25.10.2024
         public string? Befund1BlutdruckDiastolisch { get; set; }
+        //OK 25.10.2024
         public string? Befund1Bewusstlage { get; set; }
+        //OK 25.10.2024
         public string? Befund1GCS { get; set; }
+        //OK 25.10.2024
         public string? DiagnoseGruppe { get; set; }
+        //OK 25.10.2024
         public string? DiagnoseCode { get; set; }
+        //OK 25.10.2024
         public string? NacaScore { get; set; }
+        //OK 25.10.2024
         public string? ZeitAnkunftZielklinik { get; set; }
+        //OK 25.10.2024
         public string? UnfallHergang { get; set; }
+        //OK 25.10.2024
         public string? PatientGeschlecht { get; set; }
+        //OK 25.10.2024
         public string? IvenaAnmaledeCode { get; set; }
+        //OK 25.10.2024
         public string? IvenaRmc { get; set; }
+        //OK 25.10.2024
         public string? IvenaRmz { get; set; }
+        //OK 25.10.2024
         public string? Name { get; set; }
         public string? Manchester { get; set; }
         public string? FreeSpace { get; set; }
+        //OK 25.10.2024
         public string? Befund1SpO2 { get; set; }
 
         public EmegencyCaseReview? Review1 { get; set; }
