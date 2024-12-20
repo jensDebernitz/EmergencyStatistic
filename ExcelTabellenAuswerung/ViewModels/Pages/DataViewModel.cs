@@ -10,6 +10,12 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ExcelTabellenAuswerung.Controls;
 using ExcelTabellenAuswerung.Views.Windows;
+using CsvHelper;
+using System.Globalization;
+using System.Windows.Threading;
+using System.ComponentModel;
+using System.Windows.Data;
+using CsvHelper.Configuration;
 
 namespace ExcelTabellenAuswerung.ViewModels.Pages
 {
@@ -27,9 +33,9 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
         [ObservableProperty] private string _openedFilePathData2 = string.Empty;
 
-        private string _searchText = string.Empty;
-
         [ObservableProperty] private ObservableCollection<EmergencyCase?> _emergencyCaseList = [];
+
+        [ObservableProperty] private ICollectionView _filteredEmergencyCaseList;
 
         public bool IsInitialized { get; internal set; }
 
@@ -103,7 +109,7 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
             EmergencyCaseList = new ObservableCollection<EmergencyCase?>(emergencyCases);
 
             stopwatch.Stop();
-
+            FilteredEmergencyCaseList = CollectionViewSource.GetDefaultView(EmergencyCaseList);
             // Loggen der Dauer der Operation
             Log.Information("Die LoadInformation dauerte {Duration} Millisekunden.", stopwatch.ElapsedMilliseconds);
         }
@@ -118,9 +124,64 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
         {
         }
 
+        [RelayCommand]
+        public async Task OnStartCsvExport2()
+        {
+        }
+
+        /// <summary>
+            /// 
+            /// </summary>
+            [RelayCommand]
+        public void OnTextSearch()
+        {
+            FilterEmergencyCases();
+        }
+
+
+        [ObservableProperty]
+        private string _searchTerm;
+        
+        private void FilterEmergencyCases()
+        {
+            if (string.IsNullOrEmpty(SearchTerm))
+            {
+                FilteredEmergencyCaseList.Filter = null; // zeigt alle Daten
+            }
+            else
+            {
+                FilteredEmergencyCaseList.Filter = item =>
+                {
+                    var emergencyCase = item as EmergencyCase;
+
+                    if (emergencyCase != null)
+                    {
+                        if (emergencyCase.GrundStichwort != null
+                            && emergencyCase.GrundStichwort.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                        {
+                            return true;
+                        }
+
+                        if (emergencyCase.Diagnosis != null
+                            && emergencyCase.Diagnosis.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                        {
+                            return true;
+                        }
+
+                        if (emergencyCase.Name != null
+                            && emergencyCase.Name.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                        {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                };
+            }
+        }
+
         private void InitializeViewModel()
         {
-
             _isInitialized = true;
         }
 
@@ -268,6 +329,52 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
             Helpers.ExcelReader excelReader = new Helpers.ExcelReader();
             excelReader.SavePdf(new DirectoryInfo(openFolderDialog.FolderName));
+        }
+
+        [RelayCommand]
+        public async Task OnStartCsvExport()
+        {
+            SaveFileDialog saveFileDialog =
+                new()
+                {
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    Filter = "CSV|*.csv"
+                };
+
+            if (saveFileDialog.ShowDialog() != true)
+            {
+                return;
+            }
+
+            Dispatcher currentDispatcher = Dispatcher.CurrentDispatcher;
+
+            Task.Run(() =>
+            {
+                var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+                {
+                    NewLine = Environment.NewLine,
+                    Delimiter = "\t"
+
+                };
+
+                List<EmergencyCase?> tempList = EmergencyCaseList.ToList();
+
+                using (var writer = new StreamWriter(saveFileDialog.FileName))
+                using (var csv = new CsvWriter(writer, config))
+                {
+                    csv.WriteRecords(tempList);
+                }
+
+                currentDispatcher.Invoke(DispatcherPriority.Normal,
+                    () =>
+                    {
+                        Task.Factory.StartNew(() => Thread.Sleep(5000)).ContinueWith(
+                            t => { MainWindow.Snackbar.MessageQueue?.Enqueue("Export der Daten ist abgeschlossen"); },
+                            TaskScheduler.FromCurrentSynchronizationContext());
+                    });
+            });
+
+
         }
     }
 }
