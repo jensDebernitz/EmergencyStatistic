@@ -121,6 +121,32 @@ namespace ExcelTabellenAuswerung.Models
 
                 return PackIconKind.CheckboxMarkedCircle;
             }
+        }      
+        
+        [BsonIgnore]
+        public string IsScalingAsString
+        {
+            get
+            {
+                bool isScalingBewusstsein = ScalingBewusstsein == Scaling.upScaling || ScalingBewusstsein == Scaling.downScaling;
+                bool isScalingAtmung = ScalingAtmung == Scaling.upScaling || ScalingAtmung == Scaling.downScaling;
+                bool isScalingKreislauf = ScalingKreislauf == Scaling.upScaling || ScalingKreislauf == Scaling.downScaling;
+                bool isScalingVerletzung = ScalingVerletzung == Scaling.upScaling || ScalingVerletzung == Scaling.downScaling;
+                bool isScalingNeurologie = ScalingNeurologie == Scaling.upScaling || ScalingNeurologie == Scaling.downScaling;
+                bool isScalingSchmerz = ScalingSchmerz == Scaling.upScaling || ScalingSchmerz == Scaling.downScaling;
+
+                if (isScalingBewusstsein || isScalingAtmung || isScalingKreislauf || isScalingVerletzung || isScalingNeurologie || isScalingSchmerz)
+                {
+                    return "Skallierung";
+                }
+
+                if(Review1 == null || string.IsNullOrEmpty( Review1.IvenaRmc))
+                {
+                    return "Nicht ausgefüllt";
+                }
+
+                return "OK";
+            }
         }
 
     }

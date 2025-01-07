@@ -16,6 +16,9 @@ using System.Windows.Threading;
 using System.ComponentModel;
 using System.Windows.Data;
 using CsvHelper.Configuration;
+using System.Windows.Controls;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using ExcelTabellenAuswerung.Helpers;
 
 namespace ExcelTabellenAuswerung.ViewModels.Pages
 {
@@ -37,12 +40,16 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
         [ObservableProperty] private ICollectionView _filteredEmergencyCaseList;
 
+
+        [ObservableProperty] private ItemPresenter _selectedFilterChipItem;
+        [ObservableProperty] private ObservableCollection<ItemPresenter> _filterChips = new ObservableCollection<ItemPresenter>();
+
         public bool IsInitialized { get; internal set; }
 
         public DataViewModel()
         {
             _randomWaitungInformation = GeneratedWaitungInformations().ToList();
-
+            InitFilterChips();
             Task.Run(LoadInformation);
         }
 
@@ -60,13 +67,33 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
                 {
 
                     EmergencyCaseDataBase emergencyCaseDataBase = new EmergencyCaseDataBase();
-                    var found = EmergencyCaseList.FirstOrDefault(x => x != null && x.Id == item.Id);
-                    int i = EmergencyCaseList.IndexOf(found);
-                    EmergencyCaseList[i] = emergencyCaseDataBase.Get(item.Id);
-
+                    List<Models.EmergencyCase> emergencyCases = emergencyCaseDataBase.LoadData();
+                    EmergencyCaseList = new ObservableCollection<EmergencyCase?>(emergencyCases);
+                    FilteredEmergencyCaseList = CollectionViewSource.GetDefaultView(EmergencyCaseList);
+                    FilteredEmergencyCaseList.Refresh();
                 }
             }
         }
+
+        void InitFilterChips()
+        {
+            FilterChips.Add(new ItemPresenter { Item = "OK", IsSelected = true });
+            FilterChips.Add(new ItemPresenter { Item = "Skallierung", IsSelected = true });
+            FilterChips.Add(new ItemPresenter { Item = "Nicht ausgefüllt", IsSelected = true });
+
+            foreach (ItemPresenter itemPresenter in FilterChips)
+            {
+                itemPresenter.PropertyChanged += ItemPresenter_PropertyChanged;
+            }
+
+        }
+
+        private void ItemPresenter_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            FilterEmergencyCases();
+        }
+
+
 
         private IEnumerable<string> GeneratedWaitungInformations()
         {
@@ -141,43 +168,55 @@ namespace ExcelTabellenAuswerung.ViewModels.Pages
 
         [ObservableProperty]
         private string _searchTerm;
-        
+
         private void FilterEmergencyCases()
         {
-            if (string.IsNullOrEmpty(SearchTerm))
+            FilteredEmergencyCaseList.Filter = item =>
             {
-                FilteredEmergencyCaseList.Filter = null; // zeigt alle Daten
-            }
-            else
-            {
-                FilteredEmergencyCaseList.Filter = item =>
-                {
-                    var emergencyCase = item as EmergencyCase;
+                var emergencyCase = item as EmergencyCase;
 
-                    if (emergencyCase != null)
+                if (emergencyCase != null)
+                {
+                    bool isFound = false;
+                    string scaling = emergencyCase.IsScalingAsString;
+
+                    if (string.IsNullOrEmpty(SearchTerm) != true)
                     {
                         if (emergencyCase.GrundStichwort != null
-                            && emergencyCase.GrundStichwort.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                            && emergencyCase.GrundStichwort.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase)
+                            && FilterChips.ToList().Find(x => x.IsSelected && x.Item == scaling) != null)
                         {
-                            return true;
+                            isFound = true;
                         }
 
                         if (emergencyCase.Diagnosis != null
-                            && emergencyCase.Diagnosis.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                            && emergencyCase.Diagnosis.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase)
+                            && FilterChips.ToList().Find(x => x.IsSelected && x.Item == scaling) != null)
                         {
-                            return true;
+                            isFound = true;
                         }
 
                         if (emergencyCase.Name != null
-                            && emergencyCase.Name.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                            && emergencyCase.Name.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase)
+                            && FilterChips.ToList().Find(x => x.IsSelected && x.Item == scaling) != null)
                         {
-                            return true;
+                            isFound = true;
+                        }
+                    }
+                    else
+                    {
+                        if (FilterChips.ToList().Find(x => x.IsSelected && x.Item == scaling) != null)
+                        {
+                            isFound = true;
                         }
                     }
 
-                    return false;
-                };
-            }
+                    return isFound;
+                }
+
+                return false;
+            };
+
         }
 
         private void InitializeViewModel()

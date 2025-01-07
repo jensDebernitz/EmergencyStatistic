@@ -14,7 +14,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>ambulance.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>1.0.25</Version>
+    <Version>1.0.26</Version>
     <StartupObject>ExcelTabellenAuswerung.Program</StartupObject>
     <ApplicationIcon>wpfui-icon.ico</ApplicationIcon>
   </PropertyGroup>

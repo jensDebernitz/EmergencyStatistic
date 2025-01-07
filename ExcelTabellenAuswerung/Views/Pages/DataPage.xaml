@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="windows-1252" ?>
 <UserControl
     x:Class="ExcelTabellenAuswerung.Views.Pages.DataPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -9,72 +10,152 @@
     xmlns:models="clr-namespace:ExcelTabellenAuswerung.Models"
     mc:Ignorable="d">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.chip.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid Cursor="">
         <Grid.RowDefinitions>
-            <RowDefinition Height="150" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="1">
-            <StackPanel Margin="10" Orientation="Horizontal">
-                <Button
-                    Grid.Column="0"
-                    Command="{Binding ViewModel.OpenFileData1Command}"
-                    Content="Einlesen MED-Data Tabelle" />
-                <StackPanel
-                    Grid.Column="1"
-                    Margin="16,0,0,0"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal"
-                    Visibility="{Binding ViewModel.OpenedFilePathVisibilityData1}">
-                    <TextBlock Width="250" Text="Neu Importierte:" />
-                    <TextBlock
-                        Width="250"
-                        Margin="4,0,0,0"
-                        Text="{Binding ViewModel.OpenedFilePathData1}" />
+        <Expander
+            Grid.Row="0"
+            Grid.Column="1"
+            Width="800"
+            Margin="10"
+            Background="White"
+            Header="Im- / Export Daten">
+            <StackPanel>
+                <StackPanel Margin="10" Orientation="Horizontal">
+                    <Button
+                        Grid.Column="0"
+                        Command="{Binding ViewModel.OpenFileData1Command}"
+                        Content="Einlesen MED-Data Tabelle" />
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="16,0,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Visibility="{Binding ViewModel.OpenedFilePathVisibilityData1}">
+                        <TextBlock Width="250" Text="Neu Importierte:" />
+                        <TextBlock
+                            Width="250"
+                            Margin="4,0,0,0"
+                            Text="{Binding ViewModel.OpenedFilePathData1}" />
+
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="10" Orientation="Horizontal">
+                    <Button
+                        Grid.Column="0"
+                        Command="{Binding ViewModel.OpenFileData2Command}"
+                        Content="Einlesen RD-Data Tabelle" />
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="16,0,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Visibility="{Binding ViewModel.OpenedFilePathVisibilityData2}">
+                        <TextBlock Width="250" Text="Neu Importierte:" />
+                        <TextBlock
+                            Width="250"
+                            Margin="4,0,0,0"
+                            Text="{Binding ViewModel.OpenedFilePathData2}" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="10" Orientation="Horizontal">
+                    <Button
+                        Grid.Column="0"
+                        Command="{Binding ViewModel.OpenFileImportDocumentsCommand}"
+                        Content="Dokumente importieren"
+                        Cursor="Hand" />
+                    <Button
+                        Grid.Column="0"
+                        Margin="100,0,0,0"
+                        Command="{Binding ViewModel.StartCsvExportCommand}"
+                        Content="CSV-Export" />
+                </StackPanel>
+
+            </StackPanel>
+        </Expander>
+
+
+        <Expander
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="800"
+            Margin="10"
+            Background="White"
+            Header="Suchen / Filter">
+            <StackPanel>
+
+                <ListBox
+                    x:Name="ListBoxFilterChips"
+                    Margin="0,10,0,0"
+                    ItemsSource="{Binding ViewModel.FilterChips, NotifyOnSourceUpdated=True}"
+                    Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineListBox}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Item}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <CheckBox
+                                            Content="{TemplateBinding Content}"
+                                            ContentStringFormat="{TemplateBinding ContentTemplateSelector}"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                            FontFamily="{TemplateBinding FontFamily}"
+                                            FontSize="{TemplateBinding FontSize}"
+                                            FontStretch="{TemplateBinding FontStretch}"
+                                            FontStyle="{TemplateBinding FontStyle}"
+                                            FontWeight="{TemplateBinding FontWeight}"
+                                            IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                            Style="{StaticResource MaterialDesignFilterChipOutlineCheckBox}" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+
+                <StackPanel Margin="10" Orientation="Horizontal">
+                    <TextBox
+                        Width="300"
+                        Margin="0,0,10,0"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        Cursor=""
+                        Text="{Binding ViewModel.SearchTerm, UpdateSourceTrigger=PropertyChanged}"
+                        ToolTip="Sie können nach Grundstichwort, Diagnose oder Name suchen" />
+                    <Button
+                        Width="150"
+                        Command="{Binding ViewModel.TextSearchCommand}"
+                        Content="Suchen"
+                        Cursor=""
+                        ToolTip="Sie können nach Grundstichwort, Diagnose oder Name suchen" />
 
                 </StackPanel>
             </StackPanel>
-            <StackPanel Margin="10" Orientation="Horizontal">
-                <Button
-                    Grid.Column="0"
-                    Command="{Binding ViewModel.OpenFileData2Command}"
-                    Content="Einlesen RD-Data Tabelle" />
-                <StackPanel
-                    Grid.Column="1"
-                    Margin="16,0,0,0"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal"
-                    Visibility="{Binding ViewModel.OpenedFilePathVisibilityData2}">
-                    <TextBlock Width="250" Text="Neu Importierte:" />
-                    <TextBlock
-                        Width="250"
-                        Margin="4,0,0,0"
-                        Text="{Binding ViewModel.OpenedFilePathData2}" />
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Margin="10" Orientation="Horizontal">
-                <Button
-                    Grid.Column="0"
-                    Command="{Binding ViewModel.OpenFileImportDocumentsCommand}"
-                    Content="Dokumente importieren"
-                    Cursor="Hand" />
-                <Button
-                    Grid.Column="0"
-                    Margin="100,0,0,0"
-                    Command="{Binding ViewModel.StartCsvExportCommand}"
-                    Content="CSV-Export" />
-            </StackPanel>
-        </StackPanel>
+        </Expander>
 
         <ListView
             x:Name="FixedListView"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="0"
             BorderThickness="0"
             ItemsSource="{Binding ViewModel.FilteredEmergencyCaseList}"
@@ -99,7 +180,7 @@
 
         <ListView
             x:Name="ScrollableListView"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="1"
             BorderThickness="0"
             ItemsSource="{Binding ViewModel.FilteredEmergencyCaseList}"
@@ -223,20 +304,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Grid Grid.Row="2" Grid.Column="1">
-            <StackPanel Margin="10" Orientation="Horizontal">
-                <TextBox
-                    Width="200"
-                    Margin="0,0,10,0"
-                    Cursor=""
-                    Text="{Binding ViewModel.SearchTerm, UpdateSourceTrigger=PropertyChanged}" />
-                <Button
-                    Width="150"
-                    Command="{Binding ViewModel.TextSearchCommand}"
-                    Content="Suchen"
-                    Cursor="" />
-            </StackPanel>
-        </Grid>
         <Grid Grid.Row="2" Grid.Column="0" />
     </Grid>
 
